@@ -7,6 +7,9 @@ from model4pre.data import collate_pool, get_data_loader, CIFData, load_gcn
 from model4pre.cif2data import ase_format, CIF2json, pre4pre, write4cif
 
 def predict_with_model(model_name, file):
+
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    
     model_pbe_name = "./pth/mof_pbe/pbe-atom.pth"
     if model_name == "COF":
         model_ddec_name = "./pth/COF/ddec.pth"
@@ -36,9 +39,7 @@ def predict_with_model(model_name, file):
     model4chg.cuda() if torch.cuda.is_available() else model4chg.to(device)
     model4chg.load_state_dict(chkpt_ddec['state_dict'])
     model4chg.eval()
-
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
+    
     for _, (input,cif_ids) in enumerate(pre_loader):
         with torch.no_grad():
             if device == "cuda":
