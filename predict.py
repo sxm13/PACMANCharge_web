@@ -7,11 +7,10 @@ from model4pre.data import collate_pool, get_data_loader, CIFData, load_gcn
 from model4pre.cif2data import ase_format, CIF2json, pre4pre, write4cif
 
 class CustomUnpickler(pickle.Unpickler):
-        def find_class(self, module, name):
-            try:
-                return super().find_class(module, name)
-            except ModuleNotFoundError:
-                return type(name, (), {})
+    def find_class(self, module, name):
+        if module == "source":
+            return type(name, (), {})
+        return super().find_class(module, name)
                 
 def predict_with_model(model_name, file):
 
