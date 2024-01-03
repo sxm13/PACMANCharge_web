@@ -6,6 +6,13 @@ from model4pre.GCN_ddec import SemiFullGN
 from model4pre.data import collate_pool, get_data_loader, CIFData, load_gcn
 from model4pre.cif2data import ase_format, CIF2json, pre4pre, write4cif
 
+class CustomUnpickler(pickle.Unpickler):
+        def find_class(self, module, name):
+            try:
+                return super().find_class(module, name)
+            except ModuleNotFoundError:
+                return type(name, (), {})
+                
 def predict_with_model(model_name, file):
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -18,9 +25,15 @@ def predict_with_model(model_name, file):
         model_ddec_name = "./pth/MOF/ddec.pth"
         ddec_nor_name = "./pth/MOF/normalizer-ddec.pkl"
     gcn = load_gcn(model_pbe_name)
-    with open(ddec_nor_name, 'rb') as f:
-        ddec_nor = pickle.load(f)
-    f.close()
+    import pickle
+
+    with open(ddec_nor_name, 'rb') as file:
+        unpickler = CustomUnpickler(file)
+        ddec_nor = unpickler.load()
+
+    # with open(ddec_nor_name, 'rb') as f:
+    #     ddec_nor = pickle.load(f)
+    # f.close()
     ase_format(file)
     CIF2json(file,save_path="")
     pre4pre(file,"","")
