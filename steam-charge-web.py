@@ -13,11 +13,11 @@ from model4pre.cif2data import ase_format, CIF2json, pre4pre, write4cif
 def predict_with_model(model_name, file):
     model_pbe_name = "./pth/mof_pbe/pbe-atom.pth"
     if model_name == "COF":
-        model_ddec_name = "./pth/best_ddec_COF/ddec.pth"
-        ddec_nor_name = "./pth/best_ddec_COF/normalizer-ddec.pkl"
+        model_ddec_name = "./pth/COF/ddec.pth"
+        ddec_nor_name = "./pth/COF/normalizer-ddec.pkl"
     else:
-        model_ddec_name = "./pth/best_ddec/ddec.pth"
-        ddec_nor_name = "./pth/best_ddec/normalizer-ddec.pkl"
+        model_ddec_name = "./pth/MOF/ddec.pth"
+        ddec_nor_name = "./pth/MOF/normalizer-ddec.pkl"
     gcn = load_gcn(model_pbe_name)
     with open(ddec_nor_name, 'rb') as f:
         ddec_nor = pickle.load(f)
