@@ -3,6 +3,7 @@ import warnings
 import numpy as np
 import pymatgen.core as mg
 from ase.io import read,write
+# from ase.io.cif import read_cif, write_cif
 from pymatgen.io.ase import AseAtomsAdaptor
 
 def ase_format(mof):
@@ -13,15 +14,15 @@ def ase_format(mof):
             write(mof, struc)
             print('Reading by ase: ' + mof)
     except:
-        try:
+        # try:
             struc = mg.Structure.from_file(mof)
             print('Reading by pymatgen: ' + mof)
             struc.to(mof, fmt="cif")
             struc = read(mof)
             write(mof, struc)
             print('Reading by ase: ' + mof)
-        except:
-            print("An error occurred while reading: " + mof)
+        # except:
+        #     print("An error occurred while reading: " + mof)
 
 periodic_table_symbols = [
     'H', 'He', 'Li', 'Be', 'B', 'C', 'N', 'O', 'F', 'Ne', 'Na', 'Mg',
@@ -101,7 +102,7 @@ def n_atom(mof):
     print("number of atoms of " + name +": ", len(elements))
     return len(elements)
 
-def write_cif(mof,cell,pos,chg,save_dir,charge = False):
+def write4cif(mof,cell,pos,chg,save_dir,charge = False):
     name = mof.split('.cif')[0]
     cell_data = np.load(cell + name + "_cell.npy")
     pos_data = np.load(pos + name + "_pos.npy")
@@ -136,6 +137,10 @@ def write_cif(mof,cell,pos,chg,save_dir,charge = False):
         with open(save_dir + name + "_gcn.cif", 'w') as file:
             file.writelines(lines)
         file.close()
+
+        # atoms_final = read_cif(save_dir + name + "_gcn.cif",index=-1)
+        # custom_loop_keys = {'_atom_site_charge': charges}
+        # write_cif(save_dir + name + "_gcn.cif", atoms_final, loop_keys=custom_loop_keys)
 
     with open(save_dir + name + "_gcn.cif", 'r') as file:
         content = file.read()
