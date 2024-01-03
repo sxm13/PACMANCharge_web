@@ -91,7 +91,7 @@ def predict_with_model(model_name, file):
             os.remove(cif_ids[0] + '_charge.npy')
     return result
 
-st.title('MOF/COF Charges predicter')
+st.title('MOF/COF GCN Charges Predicter')
 uploaded_file = st.file_uploader("Please upload your CIF file", type="cif")
 model_option = st.radio("Type", ('MOF', 'COF'))
 
