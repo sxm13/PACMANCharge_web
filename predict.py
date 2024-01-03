@@ -18,9 +18,9 @@ def predict_with_model(model_name, file):
         model_ddec_name = "./pth/MOF/ddec.pth"
         ddec_nor_name = "./pth/MOF/normalizer-ddec.pkl"
     gcn = load_gcn(model_pbe_name)
-    # with open(ddec_nor_name, 'rb') as f:
-    #     ddec_nor = pickle.load(f)
-    # f.close()
+    with open(ddec_nor_name, 'rb') as f:
+        ddec_nor = pickle.load(f)
+    f.close()
     ase_format(file)
     CIF2json(file,save_path="")
     pre4pre(file,"","")
@@ -79,7 +79,7 @@ def predict_with_model(model_name, file):
                         input[9][:,:9])
             chg = model4chg(*input_var2)
             chg = chg.data.cpu()
-            # chg = ddec_nor.denorm(chg.data.cpu())
+            chg = ddec_nor.denorm(chg.data.cpu())
             name = cif_ids[0]+'_charge.npy'
             np.save(""+name,chg)
             result = write4cif(file,"","","","",charge = True)
