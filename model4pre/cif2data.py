@@ -153,5 +153,10 @@ def write4cif(mof,cell,pos,chg,save_dir,charge = False):
     with open(save_dir + name + "_gcn.cif", 'w') as file:
         file.write(new_content)
     file.close()
+
+    with open(save_dir + name + "_gcn.cif", 'r') as file:
+        cif_data = file.read()
+
+    return cif_data
     
     
