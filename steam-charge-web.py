@@ -14,6 +14,6 @@ if uploaded_file is not None and model_option:
     st.write("predicted result: ")
     st.write(prediction)
     if prediction is not None:
-        st.download_button(label="Download cif file with charges", data=prediction, file_name="prediction.cif", mime="text/cif")
+        st.download_button(label="Download cif file with charges", data=prediction, file_name="prediction.cif")
     else:
         st.write("No data available for download")
