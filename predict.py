@@ -88,7 +88,4 @@ def predict_with_model(model_name, file):
             os.remove(cif_ids[0] + '_pos.npy')
             os.remove(cif_ids[0] + '_charge.npy')
             os.remove(cif_ids[0] + '.cif')
-            with open(cif_ids[0] + "_gcn.cif", 'r') as file:
-                cif_result = file.read()
-            os.remove(cif_ids[0] + "_gcn.cif")
-    return chg
+    return result
