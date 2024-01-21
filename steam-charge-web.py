@@ -18,10 +18,10 @@ model_option = st.radio("Type", ('MOF', 'COF'))
 
 if uploaded_file is not None and model_option:
     prediction = predict_with_model(model_option, f'{file_name}.cif')
-    st.write("predicting")
+    st.write("please download structure with GCN Charge")
     if prediction is not None:
         # Use the input file name for the output file
-        st.download_button(label="Download cif file with charges", data=prediction, file_name=f"{file_name}_prediction.cif")
+        st.download_button(label="Download cif file with charges", data=prediction, file_name=f"{file_name}_gcn.cif")
     else:
         st.write("No data available for download")
 
