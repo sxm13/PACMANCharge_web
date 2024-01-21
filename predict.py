@@ -29,8 +29,6 @@ def predict_with_model(model_name, file):
         unpickler = CustomUnpickler(f)
         ddec_nor = unpickler.load()
 
-    # with open(ddec_nor_name, 'rb') as f:
-    #     ddec_nor = pickle.load(f)
     f.close()
     ase_format(file)
     CIF2json(file,save_path="")
