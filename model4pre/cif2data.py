@@ -12,7 +12,7 @@ def ase_format(mof):
             warnings.simplefilter('ignore')
             struc = read(mof)
             write(mof, struc)
-            print('Reading by ase: ' + mof)
+            # print('Reading by ase: ' + mof)
     except:
         # try:
             struc = mg.Structure.from_file(mof)
@@ -20,7 +20,7 @@ def ase_format(mof):
             struc.to(mof, fmt="cif")
             struc = read(mof)
             write(mof, struc)
-            print('Reading by ase: ' + mof)
+            # print('Reading by ase: ' + mof)
         # except:
         #     print("An error occurred while reading: " + mof)
 
@@ -91,7 +91,7 @@ def pre4pre(mof, save_cell_dir, save_pos_dir):
             z = coords[i][2]
             pos.append([float(x),float(y),float(z)])
         np.save(save_pos_dir + name + '_pos.npy', pos)
-        print(f"Processed {name} successfully.")
+        # print(f"Processed {name} successfully.")
     except Exception as e:
         print(f"An error occurred while finding cell and position of {name}: {e}")
 
