@@ -91,7 +91,7 @@ def predict_with_model(model_name, file):
             chg = ddec_nor.denorm(chg.data.cpu())
             name = cif_ids[0]+'_charge.npy'
             np.save(""+name,chg)
-            result = write4cif(file,"","","","",charge = True)
+            result = write4cif(file,"","","","","",charge = True)
             os.remove(cif_ids[0] + '.json')
             os.remove(cif_ids[0] + '_cell.npy')
             os.remove(cif_ids[0] + '_pos.npy')
