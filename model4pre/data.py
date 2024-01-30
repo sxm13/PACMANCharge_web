@@ -118,7 +118,7 @@ class CIFData(Dataset):
         nums = crystal_data['numbers']
         atom_fea = np.vstack([self.ari.get_atom_fea(nn) for nn in nums])
         pos = self.pos
-        cell = self.cell.reshape(1,9)
+        cell = np.array(self.cell).reshape(1,9)
         cell_repeat = np.repeat(cell[0,0:9].reshape(1,9),len(nums),axis=0)
         index1 = np.array(crystal_data['index1'])
         nbr_fea_idx = np.array(crystal_data['index2'])
