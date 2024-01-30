@@ -111,7 +111,7 @@ def write4cif(name,chg,save_dir,charge = False):
             if '_atom_site_occupancy' in line:
                 lines.insert(i + 1, "  _atom_site_charge\n")
                 break
-        charge_index = 0
+        charge_index = 1
         for j in range(i + 2, len(lines)):
             if charge_index < len(charges):
                 lines[j] = lines[j].strip() + " " + str(charges[charge_index]) + "\n"
@@ -121,11 +121,6 @@ def write4cif(name,chg,save_dir,charge = False):
         with open(save_dir + name + ".cif", 'w') as file:
             file.writelines(lines)
         file.close()
-
-        # atoms_final = read_cif(save_dir + name + "_gcn.cif",index=-1)
-        # custom_loop_keys = {'_atom_site_charge': charges}
-        # write_cif(save_dir + name + "_gcn.cif", atoms_final, loop_keys=custom_loop_keys)
-
     with open(save_dir + name + ".cif", 'r') as file:
         content = file.read()
     file.close()
@@ -135,8 +130,3 @@ def write4cif(name,chg,save_dir,charge = False):
     new_content = new_content.replace('_space_group_symop_operation_xyz', '_symmetry_equiv_pos_as_xyz')
 
     return new_content
-    # with open(save_dir + name + ".cif", 'w') as file:
-    #     file.write(new_content)
-    # file.close()
-    
-    
