@@ -81,5 +81,5 @@ def predict_with_model(model_name, file,name):
             chg = model4chg(*input_var2)
             chg = chg.data.cpu()
             chg = ddec_nor.denorm(chg.data.cpu())
-            result = write4cif(name,chg,"",charge = True)
+            result = write4cif(name,chg,charge = True)
     return result
