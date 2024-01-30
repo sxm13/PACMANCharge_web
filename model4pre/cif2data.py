@@ -94,7 +94,7 @@ def pre4pre(mof, save_cell_dir, save_pos_dir):
         pass
     return lattice, pos
 
-def write4cif(name,chg,save_dir,charge = False):
+def write4cif(name,chg,charge = False):
     if charge:
         gcn_charge = chg.numpy()
         sum_chg = sum(gcn_charge)
@@ -111,21 +111,14 @@ def write4cif(name,chg,save_dir,charge = False):
             if '_atom_site_occupancy' in line:
                 lines.insert(i + 1, "  _atom_site_charge\n")
                 break
-        charge_index = 1
+        charge_index = 0
         for j in range(i + 2, len(lines)):
             if charge_index < len(charges):
                 lines[j] = lines[j].strip() + " " + str(charges[charge_index]) + "\n"
                 charge_index += 1
             else:
                 break
-        with open(save_dir + name + ".cif", 'w') as file:
-            file.writelines(lines)
-        file.close()
-    with open(save_dir + name + ".cif", 'r') as file:
-        content = file.read()
-    file.close()
-
-    new_content = content.replace('_space_group_name_H-M_alt', '_symmetry_space_group_name_H-M')
+    new_content = lines.replace('_space_group_name_H-M_alt', '_symmetry_space_group_name_H-M')
     new_content = new_content.replace('_space_group_IT_number', '_symmetry_Int_Tables_number')
     new_content = new_content.replace('_space_group_symop_operation_xyz', '_symmetry_equiv_pos_as_xyz')
 
