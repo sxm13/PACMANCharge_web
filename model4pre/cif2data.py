@@ -134,8 +134,9 @@ def write4cif(name,chg,save_dir,charge = False):
     new_content = new_content.replace('_space_group_IT_number', '_symmetry_Int_Tables_number')
     new_content = new_content.replace('_space_group_symop_operation_xyz', '_symmetry_equiv_pos_as_xyz')
 
-    with open(save_dir + name + ".cif", 'w') as file:
-        file.write(new_content)
-    file.close()
+    return new_content
+    # with open(save_dir + name + ".cif", 'w') as file:
+    #     file.write(new_content)
+    # file.close()
     
     
