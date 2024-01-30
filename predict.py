@@ -6,16 +6,8 @@ from model4pre.GCN_ddec import SemiFullGN
 from model4pre.data import collate_pool, get_data_loader, CIFData, load_gcn
 from model4pre.cif2data import ase_format, CIF2json, pre4pre, write4cif
 
-class CustomUnpickler(pickle.Unpickler):
-    def find_class(self, module, name):
-        if module == "source":
-            return type(name, (), {})
-        return super().find_class(module, name)
-                
 def predict_with_model(model_name, file):
-
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    
     model_pbe_name = "./pth/mof_pbe/pbe-atom.pth"
     if model_name == "COF":
         model_ddec_name = "./pth/COF/ddec.pth"
@@ -24,10 +16,8 @@ def predict_with_model(model_name, file):
         model_ddec_name = "./pth/MOF/ddec.pth"
         ddec_nor_name = "./pth/MOF/normalizer-ddec.pkl"
     gcn = load_gcn(model_pbe_name)
-
     with open(ddec_nor_name, 'rb') as f:
         ddec_nor = pickle.load(f)
-
     f.close()
     ase_format(file)
     CIF2json(file,save_path="")
@@ -39,7 +29,6 @@ def predict_with_model(model_name, file):
     collate_fn = collate_pool
     pre_loader= get_data_loader(pre_dataset,collate_fn,batch_size,num_workers,pin_memory)
     structures, _, _ = pre_dataset[0]
-
     chg_1 = structures[0].shape[-1] + 3
     chg_2 = structures[1].shape[-1]
     chkpt_ddec = torch.load(model_ddec_name, map_location=torch.device(device))
@@ -47,7 +36,6 @@ def predict_with_model(model_name, file):
     model4chg.cuda() if torch.cuda.is_available() else model4chg.to(device)
     model4chg.load_state_dict(chkpt_ddec['state_dict'])
     model4chg.eval()
-    
     for _, (input,cif_ids) in enumerate(pre_loader):
         with torch.no_grad():
             if device == "cuda":
