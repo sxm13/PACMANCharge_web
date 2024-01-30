@@ -24,6 +24,7 @@ def predict_with_model(model_name, file):
     with open(ddec_nor_name, 'rb') as f:
         ddec_nor = pickle.load(f)
     f.close()
+    name = file.split(".cif")[0]
     ase_format(file)
     data = CIF2json(file,save_path="")
     lattice, pos = pre4pre(file,"","")
@@ -81,5 +82,5 @@ def predict_with_model(model_name, file):
             chg = model4chg(*input_var2)
             chg = chg.data.cpu()
             chg = ddec_nor.denorm(chg.data.cpu())
-            result = write4cif(chg,"",charge = True)
+            result = write4cif(name,chg,"",charge = True)
     return result
