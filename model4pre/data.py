@@ -113,7 +113,7 @@ class CIFData(Dataset):
         return 1
     @functools.lru_cache(maxsize=None) 
     def __getitem__(self,_):
-        cif_id = predicted
+        cif_id = "predicted"
         crystal_data = self.json
         nums = crystal_data['numbers']
         atom_fea = np.vstack([self.ari.get_atom_fea(nn) for nn in nums])
