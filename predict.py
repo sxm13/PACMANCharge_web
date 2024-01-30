@@ -11,7 +11,7 @@ import sys
 source = importlib.import_module('model4pre')
 sys.modules['source'] = source
 
-def predict_with_model(model_name, file):
+def predict_with_model(model_name, file,name):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model_pbe_name = "./pth/mof_pbe/pbe-atom.pth"
     if model_name == "COF":
@@ -24,7 +24,6 @@ def predict_with_model(model_name, file):
     with open(ddec_nor_name, 'rb') as f:
         ddec_nor = pickle.load(f)
     f.close()
-    name = file.split(".cif")[0]
     ase_format(file)
     data = CIF2json(file,save_path="")
     lattice, pos = pre4pre(file,"","")
