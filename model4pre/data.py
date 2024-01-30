@@ -101,7 +101,7 @@ class AtomCustomJSONInitializer(AtomInitializer):
 						self._embedding[key] = zz.reshape(1,-1)
     
 class CIFData(Dataset):
-    def __init__(self,json,pos,cell,radius=6,dmin=0,step=0.2):
+    def __init__(self,json,cell,pos,radius=6,dmin=0,step=0.2):
         self.json = json
         self.pos = pos
         self.cell = cell
