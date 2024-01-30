@@ -26,8 +26,7 @@ def predict_with_model(model_name, file):
     gcn = load_gcn(model_pbe_name)
 
     with open(ddec_nor_name, 'rb') as f:
-        unpickler = CustomUnpickler(f)
-        ddec_nor = unpickler.load()
+        ddec_nor = pickle.load(f)
 
     f.close()
     ase_format(file)
