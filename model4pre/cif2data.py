@@ -75,8 +75,7 @@ def CIF2json(mof, save_path):
             "dij": dij.tolist(),
             "nn_num": nn_num}
     name = mof.split('.cif')[0]
-    with open(save_path + name + ".json", 'w') as file:
-        json.dump(data, file)
+    return data
 
 def pre4pre(mof, save_cell_dir, save_pos_dir):
     name = mof.split('.cif')[0]
@@ -86,24 +85,14 @@ def pre4pre(mof, save_cell_dir, save_pos_dir):
         elements = [str(site.specie) for site in structure.sites]
         pos = []
         lattice = structure.lattice.matrix
-        np.save(save_cell_dir + name + '_cell.npy', lattice)
         for i in range(len(elements)):
             x = coords[i][0]
             y = coords[i][1]
             z = coords[i][2]
             pos.append([float(x),float(y),float(z)])
-        np.save(save_pos_dir + name + '_pos.npy', pos)
-        # print(f"Processed {name} successfully.")
     except Exception as e:
         pass
-        # print(f"An error occurred while finding cell and position of {name}: {e}")
-
-def n_atom(mof):
-    structure = mg.Structure.from_file(mof)
-    name = mof.split('.cif')[0]
-    elements = [str(site.specie) for site in structure.sites]
-    print("number of atoms of " + name +": ", len(elements))
-    return len(elements)
+    return lattice, pos
 
 def write4cif(mof,chg,save_dir,charge = False):
     name = mof.split('.cif')[0]
