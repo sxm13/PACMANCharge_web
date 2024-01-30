@@ -94,8 +94,7 @@ def pre4pre(mof, save_cell_dir, save_pos_dir):
         pass
     return lattice, pos
 
-def write4cif(chg,save_dir,charge = False):
-    name = "predicted"
+def write4cif(name,chg,save_dir,charge = False):
     if charge:
         gcn_charge = chg.numpy()
         sum_chg = sum(gcn_charge)
