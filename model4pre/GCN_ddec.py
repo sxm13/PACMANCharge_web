@@ -59,14 +59,14 @@ class SemiFullGN(nn.Module):
                                    nn.Conv1d(512,256,3,stride=1,padding=1),nn.LeakyReLU(0.2),
                                    nn.Conv1d(256,256,3,stride=1,padding=1),nn.LeakyReLU(0.2),
                                    nn.Conv1d(256,1,kernel_size=4,stride=1,padding=0))
-    def forward(self,atom_fea,nbr_fea,nbr_fea_idx1,nbr_fea_idx2,num_nbrs,atom_idx,relaxed_feature,cell):
+    def forward(self,atom_fea,nbr_fea,nbr_fea_idx1,nbr_fea_idx2,num_nbrs,atom_idx,structure_feature,cell):
         nbr_fea_idx1 = nbr_fea_idx1.cuda() if torch.cuda.is_available() else nbr_fea_idx1
         nbr_fea_idx2 = nbr_fea_idx2.cuda() if torch.cuda.is_available() else nbr_fea_idx2
         num_nbrs = num_nbrs.cuda() if torch.cuda.is_available() else num_nbrs
         atom_idx = atom_idx.cuda() if torch.cuda.is_available() else atom_idx
         atom_fea = atom_fea.cuda() if torch.cuda.is_available() else atom_fea
         nbr_fea = nbr_fea.cuda() if torch.cuda.is_available() else nbr_fea 
-        relaxed_feature = relaxed_feature.cuda() if torch.cuda.is_available() else relaxed_feature
+        structure_feature = structure_feature.cuda() if torch.cuda.is_available() else structure_feature
         cell = cell.cuda() if torch.cuda.is_available() else cell
 
         atom_fea = self.node_embedding(atom_fea)
@@ -74,7 +74,7 @@ class SemiFullGN(nn.Module):
         N,_ = atom_fea.shape 
         for conv_func in self.convs:
             nbr_fea,atom_fea,_,atom_nbr_fea = conv_func(atom_fea,nbr_fea,nbr_fea_idx1,nbr_fea_idx2,num_nbrs,atom_idx)
-        feature = relaxed_feature[atom_idx]
+        feature = structure_feature[atom_idx]
         cell = cell[atom_idx]
         feature = self.feature_embedding(feature)
         atom_nbr_fea = self.atom_nbr_fea_embedding(atom_nbr_fea)
