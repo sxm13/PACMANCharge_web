@@ -5,6 +5,7 @@ import numpy as np
 from model4pre.GCN_ddec import SemiFullGN
 from model4pre.data import collate_pool, get_data_loader, CIFData, load_gcn
 from model4pre.cif2data import ase_format, CIF2json, pre4pre, write4cif
+import importlib
 
 source = importlib.import_module('model4pre')
 sys.modules['source'] = source
