@@ -25,12 +25,12 @@ def predict_with_model(model_name, file):
         ddec_nor = pickle.load(f)
     f.close()
     ase_format(file)
-    CIF2json(file,save_path="")
-    pre4pre(file,"","")
+    data = CIF2json(file,save_path="")
+    lattice, pos = pre4pre(file,"","")
     batch_size = 1
     num_workers = 0
     pin_memory = False
-    pre_dataset = CIFData(file,"","")
+    pre_dataset = CIFData(data,lattice,pos)
     collate_fn = collate_pool
     pre_loader= get_data_loader(pre_dataset,collate_fn,batch_size,num_workers,pin_memory)
     structures, _, _ = pre_dataset[0]
@@ -81,12 +81,5 @@ def predict_with_model(model_name, file):
             chg = model4chg(*input_var2)
             chg = chg.data.cpu()
             chg = ddec_nor.denorm(chg.data.cpu())
-            name = cif_ids[0]+'_charge.npy'
-            np.save(""+name,chg)
-            result = write4cif(file,"","",charge = True)
-            # os.remove(cif_ids[0] + '.json')
-            # os.remove(cif_ids[0] + '_cell.npy')
-            # os.remove(cif_ids[0] + '_pos.npy')
-            # os.remove(cif_ids[0] + '_charge.npy')
-            # os.remove(cif_ids[0] + '.cif')
+            result = write4cif(chg,"",charge = True)
     return result
