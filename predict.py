@@ -84,9 +84,9 @@ def predict_with_model(model_name, file):
             name = cif_ids[0]+'_charge.npy'
             np.save(""+name,chg)
             result = write4cif(file,"","",charge = True)
-            os.remove(cif_ids[0] + '.json')
-            os.remove(cif_ids[0] + '_cell.npy')
-            os.remove(cif_ids[0] + '_pos.npy')
-            os.remove(cif_ids[0] + '_charge.npy')
+            # os.remove(cif_ids[0] + '.json')
+            # os.remove(cif_ids[0] + '_cell.npy')
+            # os.remove(cif_ids[0] + '_pos.npy')
+            # os.remove(cif_ids[0] + '_charge.npy')
             # os.remove(cif_ids[0] + '.cif')
     return result
