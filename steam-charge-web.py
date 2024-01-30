@@ -22,4 +22,5 @@ if uploaded_file is not None and model_option:
     # else:
     #     st.write("No data available for download")
 
-st.markdown('<span style="color:grey;">Site developed and maintained by Guobin Zhao (Pusan National University)</span>', unsafe_allow_html=True)
+st.markdown('<span style="color:grey;">Site developed and maintained by Guobin Zhao (Prof.Chung, Yongchul G, Pusan National University)</span>', unsafe_allow_html=True)
+st.write("MTAP [group]https://sites.google.com/view/mtap-lab/home)")
