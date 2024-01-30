@@ -6,6 +6,9 @@ from model4pre.GCN_ddec import SemiFullGN
 from model4pre.data import collate_pool, get_data_loader, CIFData, load_gcn
 from model4pre.cif2data import ase_format, CIF2json, pre4pre, write4cif
 
+source = importlib.import_module('model4pre')
+sys.modules['source'] = source
+
 def predict_with_model(model_name, file):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model_pbe_name = "./pth/mof_pbe/pbe-atom.pth"
