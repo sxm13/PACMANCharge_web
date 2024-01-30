@@ -88,5 +88,5 @@ def predict_with_model(model_name, file):
             os.remove(cif_ids[0] + '_cell.npy')
             os.remove(cif_ids[0] + '_pos.npy')
             os.remove(cif_ids[0] + '_charge.npy')
-            os.remove(cif_ids[0] + '.cif')
+            # os.remove(cif_ids[0] + '.cif')
     return result
