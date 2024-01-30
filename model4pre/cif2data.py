@@ -94,10 +94,10 @@ def pre4pre(mof, save_cell_dir, save_pos_dir):
         pass
     return lattice, pos
 
-def write4cif(mof,chg,save_dir,charge = False):
-    name = mof.split('.cif')[0]
+def write4cif(chg,save_dir,charge = False):
+    name = predicted
     if charge:
-        gcn_charge = np.load(chg + name + "_charge.npy")
+        gcn_charge = chg
         sum_chg = sum(gcn_charge)
         charges = []
         for c in gcn_charge:
