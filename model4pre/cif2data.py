@@ -97,7 +97,7 @@ def pre4pre(mof, save_cell_dir, save_pos_dir):
 def write4cif(chg,save_dir,charge = False):
     name = "predicted"
     if charge:
-        gcn_charge = chg
+        gcn_charge = chg.np()
         sum_chg = sum(gcn_charge)
         charges = []
         for c in gcn_charge:
