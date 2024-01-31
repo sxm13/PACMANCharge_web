@@ -2,7 +2,15 @@ import streamlit as st
 from predict import predict_with_model
 from stmol import *
 import py3Dmol
+from ase.io import read, write
 
+def convert_cif_to_xyz(cif_file, xyz_file):
+    # Read the structure from CIF file
+    structure = read(cif_file)
+
+    # Write the structure to an XYZ file
+    write(xyz_file, structure)
+    
 st.markdown("""
     <style>
     .big-font {
@@ -42,7 +50,10 @@ if uploaded_file is not None and model_option:
     with open(f'./{file_name}.cif', 'wb') as f:
         f.write(bytes_data)
         
-    f = open(f'./{file_name}.cif',"r")
+    cif_file = './{file_name}.cif'
+    xyz_file = 'to.xyz'
+    convert_cif_to_xyz(cif_file, xyz_file)
+    f = open(f'to.xyz',"r")
     xyz = f.read()
     st.info(xyz.splitlines()[1], icon="✅")
     res = speck_plot(xyz,wbox_height="500px",wbox_width="500px")
