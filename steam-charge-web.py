@@ -41,12 +41,6 @@ if uploaded_file is not None and model_option:
     with open(f'./{file_name}.cif', 'wb') as f:
         f.write(bytes_data)
     if st.button('Get GCN Charges', key="predict_button"):
-        # Initialize the progress bar
-        progress_bar = st.progress(0)
-        for i in range(100):
-            # Update progress bar
-            progress_bar.progress(i + 1)
-            time.sleep(0.1)  # Simulate a time-consuming task
         prediction = predict_with_model(model_option, f'{file_name}.cif', file_name)
         if prediction is not None:
             st.markdown('<span class="green-text">Please download the structure with GCN Charge</span>', unsafe_allow_html=True)
