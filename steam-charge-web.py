@@ -43,11 +43,6 @@ if uploaded_file is not None and model_option:
     bytes_data = uploaded_file.getvalue()
     with open(f'./{file_name}.cif', 'wb') as f:
         f.write(bytes_data)
-
-    # f = open(f'./{file_name}.cif',"r")
-    # xyz_data = f.read()
-    # st.info(xyz_data.splitlines()[1], icon="✅")
-    # res = speck_plot(xyz_data,wbox_height="500px",wbox_width="500px")
     
     structure = read(uploaded_file, format='cif')
     xyz_string_io = StringIO()
@@ -55,7 +50,7 @@ if uploaded_file is not None and model_option:
     xyz_string = xyz_string_io.getvalue()
     speck_plot(xyz_string, wbox_height="700px", wbox_width="800px",component_h = 700, component_w = 800, scroll = False)
     
-    if st.button('Get GCN Charges', key="predict_button"):
+    if st.button(' :sunglasses: Get GCN Charges', key="predict_button"):
         prediction = predict_with_model(model_option, f'{file_name}.cif', file_name)
         if prediction is not None:
             st.markdown('<span class="green-text">Please download the structure with GCN Charge</span>', unsafe_allow_html=True)
