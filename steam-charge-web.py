@@ -56,7 +56,7 @@ if uploaded_file is not None and model_option:
     f = open(f'./{file_name}.cif',"r")
     write(xyz_file_obj, atoms, format='xyz')
     xyz_data = xyz_file_obj.read()
-    st.info(xyz_data.splitlines()[1], icon="✅")
+    st.info(xyz_data.splitlines(), icon="✅")
     res = speck_plot(xyz,wbox_height="500px",wbox_width="500px")
     
     if st.button('Get GCN Charges', key="predict_button"):
