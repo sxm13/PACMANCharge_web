@@ -1,29 +1,7 @@
 import streamlit as st
 from predict import predict_with_model
-import ase
-import ase.io
-import base64
-
-def cif_to_xyz_base64(cif_file):
-    atoms = ase.io.read(cif_file)
-    xyz_data = ase.io.write(cif_file.replace('.cif', '.xyz'), atoms, format='xyz')
-    with open(cif_file.replace('.cif', '.xyz'), 'r') as xyz_file:
-        xyz_content = xyz_file.read()
-    return base64.b64encode(xyz_content.encode()).decode()
-
-def create_3dmol_html(xyz_base64):
-    html = f"""
-    <div id="molView"></div>
-    <script src="https://3Dmol.org/build/3Dmol-nojquery.js"></script>
-    <script>
-        let viewer = new $3Dmol.createViewer("molView", {{backgroundColor: "white"}});
-        viewer.addModel(atob("{xyz_base64}"), "xyz");
-        viewer.setStyle({{stick: {{}}}});
-        viewer.zoomTo();
-        viewer.render();
-    </script>
-    """
-    return html
+from stmol import *
+import py3Dmol
 
 st.markdown("""
     <style>
@@ -64,9 +42,10 @@ if uploaded_file is not None and model_option:
     with open(f'./{file_name}.cif', 'wb') as f:
         f.write(bytes_data)
         
-    xyz_base64 = cif_to_xyz_base64(f'./{file_name}.cif')
-    st.markdown("### Your Structure")
-    st.markdown(create_3dmol_html(xyz_base64), unsafe_allow_html=True)
+    f = open(f'./{file_name}.cif',"r")
+    xyz = f.read()
+    st.info(xyz.splitlines()[1], icon="✅")
+    res = speck_plot(xyz,wbox_height="500px",wbox_width="500px")
     
     if st.button('Get GCN Charges', key="predict_button"):
         prediction = predict_with_model(model_option, f'{file_name}.cif', file_name)
