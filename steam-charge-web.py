@@ -3,24 +3,6 @@ from predict import predict_with_model
 from stmol import *
 import py3Dmol
 from ase.io import read, write
-
-from io import StringIO
-
-# Custom function to convert CIF to XYZ and return as a string
-def cif_to_xyz_string(cif_content):
-    atoms = read(StringIO(cif_content), format='cif')
-    xyz_file_obj = StringIO()
-    write(xyz_file_obj, atoms, format='xyz')
-    xyz_file_obj.seek(0)
-    return xyz_file_obj.read()
-
-# Function to visualize XYZ data using py3Dmol
-def visualize_xyz(xyz_data):
-    xyzview = py3Dmol.view(width=400, height=300)
-    xyzview.addModel(xyz_data, 'xyz')
-    xyzview.setStyle({'stick': {}})
-    xyzview.zoomTo()
-    return xyzview.show()
     
 st.markdown("""
     <style>
@@ -60,16 +42,11 @@ if uploaded_file is not None and model_option:
     bytes_data = uploaded_file.getvalue()
     with open(f'./{file_name}.cif', 'wb') as f:
         f.write(bytes_data)
-    cif_content = uploaded_file.getvalue().decode("utf-8")
-    xyz_data = cif_to_xyz_string(cif_content)
 
-    # Visualize the structure
-    st.write("Structure visualization:")
-    visualize_xyz(xyz_data)
-    # f = open(f'./{file_name}.cif',"r")
-    # xyz_data = f.read()
-    # st.info(xyz_data.splitlines()[1], icon="✅")
-    # res = speck_plot(xyz_data,wbox_height="500px",wbox_width="500px")
+    f = open(f'./{file_name}.cif',"r")
+    xyz_data = f.read()
+    st.info(xyz_data.splitlines()[1], icon="✅")
+    res = speck_plot(xyz_data,wbox_height="500px",wbox_width="500px")
     
     if st.button('Get GCN Charges', key="predict_button"):
         prediction = predict_with_model(model_option, f'{file_name}.cif', file_name)
