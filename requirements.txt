@@ -8,4 +8,5 @@ joblib>= 0.13.2
 torch
 py3Dmol
 stmol==0.0.9
+ipython_genutils
 streamlit
