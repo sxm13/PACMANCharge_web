@@ -11,16 +11,14 @@ if uploaded_file is not None:
     bytes_data = uploaded_file.getvalue()
     with open(f'./{file_name}.cif', 'wb') as f:
         f.write(bytes_data)
-
 model_option = st.radio("Type", ('MOF', 'COF'))
-
 if uploaded_file is not None and model_option:
     prediction = predict_with_model(model_option, f'{file_name}.cif',file_name)
     st.write("please download structure with GCN Charge")
-    # if prediction is not None:
-    st.download_button(label="Download cif file with charges", data=prediction, file_name=f"{file_name}_gcn.cif")
-    # else:
-    #     st.write("No data available for download")
+    if prediction is not None:
+        st.download_button(label="Download cif file with charges", data=prediction, file_name=f"{file_name}_gcn.cif")
+    else:
+        st.write("No data available for download, please check your structure!")
 
 st.markdown('<span style="color:grey;">Site developed and maintained by Guobin Zhao (Prof.Chung, Yongchul G, Pusan National University)</span>', unsafe_allow_html=True)
-st.markdown("MTAP [group](https://sites.google.com/view/mtap-lab/home)")
+st.markdown("[Molecular Thermodynamics & Advance Processes Laboratory](https://sites.google.com/view/mtap-lab/home)")
