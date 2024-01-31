@@ -50,7 +50,7 @@ if uploaded_file is not None and model_option:
     with open(f'./{file_name}.cif', 'wb') as f:
         f.write(bytes_data)
         
-    cif_file = './{file_name}.cif'
+    cif_file = bytes_data
     xyz_file = 'to.xyz'
     convert_cif_to_xyz(cif_file, xyz_file)
     f = open(f'to.xyz',"r")
