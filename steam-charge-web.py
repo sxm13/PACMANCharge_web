@@ -2,8 +2,8 @@ import streamlit as st
 from predict import predict_with_model
 
 st.title('💭 MOF/COF GCN Charges Predictor')
-st.markdown(' :feelsgood: <span style="color:black;">Contact: sxmzhaogb@gmail.com</span>', unsafe_allow_html=True)
-st.markdown(' :heart_eyes: <span style="color:grey;">Cite as: GCNCharges ****</span>', unsafe_allow_html=True)
+st.markdown(' :star: <span style="color:black;">Contact: sxmzhaogb@gmail.com</span>', unsafe_allow_html=True)
+st.markdown(' :star2: <span style="color:grey;">Cite as: GCNCharges ****</span>', unsafe_allow_html=True)
 
 uploaded_file = st.file_uploader("Please upload your CIF file", type="cif")
 if uploaded_file is not None:
