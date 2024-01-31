@@ -1,8 +1,8 @@
 import streamlit as st
 from predict import predict_with_model
 
-st.title('MOF/COF GCN Charges Predictor')
-st.markdown("Contact: sxmzhaogb@gmail.com")
+st.title('💭 MOF/COF GCN Charges Predictor')
+st.markdown("Contact: sxmzhaogb@gmail.com :feelsgood:")
 st.markdown(' :heart_eyes: <span style="color:grey;">Cite as: GCNCharges ****</span>', unsafe_allow_html=True)
 
 uploaded_file = st.file_uploader("Please upload your CIF file", type="cif")
@@ -23,4 +23,4 @@ if uploaded_file is not None and model_option:
     #     st.write("No data available for download")
 
 st.markdown('<span style="color:grey;">Site developed and maintained by Guobin Zhao (Prof.Chung, Yongchul G, Pusan National University)</span>', unsafe_allow_html=True)
-st.markdown("MTAP [group]https://sites.google.com/view/mtap-lab/home)")
+st.markdown("MTAP [group](https://sites.google.com/view/mtap-lab/home)")
