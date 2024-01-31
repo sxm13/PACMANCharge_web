@@ -2,7 +2,7 @@ import streamlit as st
 from predict import predict_with_model
 
 st.title('💭 MOF/COF GCN Charges Predictor')
-st.markdown(' :feelsgood: Contact: sxmzhaogb@gmail.com')
+st.markdown(' :feelsgood: '' Contact: sxmzhaogb@gmail.com')
 st.markdown(' :heart_eyes: <span style="color:grey;">Cite as: GCNCharges ****</span>', unsafe_allow_html=True)
 
 uploaded_file = st.file_uploader("Please upload your CIF file", type="cif")
