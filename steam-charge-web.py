@@ -60,6 +60,7 @@ if uploaded_file is not None and model_option:
     bytes_data = uploaded_file.getvalue()
     with open(f'./{file_name}.cif', 'wb') as f:
         f.write(bytes_data)
+    cif_content = uploaded_file.getvalue().decode("utf-8")
     xyz_data = cif_to_xyz_string(cif_content)
 
     # Visualize the structure
