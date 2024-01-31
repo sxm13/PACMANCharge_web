@@ -49,13 +49,13 @@ if uploaded_file is not None and model_option:
     bytes_data = uploaded_file.getvalue()
     with open(f'./{file_name}.cif', 'wb') as f:
         f.write(bytes_data)
-        
-    cif_file = bytes_data
-    xyz_file = 'to.xyz'
-    convert_cif_to_xyz(cif_file, xyz_file)
-    f = open(f'to.xyz',"r")
-    xyz = f.read()
-    st.info(xyz.splitlines()[1], icon="✅")
+
+    atoms = read(bytes_data)
+    xyz_file_obj = StringIO()
+    f = open(f'./{file_name}.cif',"r")
+    write(xyz_file_obj, atoms, format='xyz')
+    xyz_data = xyz_file_obj.read()
+    st.info(xyz_data.splitlines()[1], icon="✅")
     res = speck_plot(xyz,wbox_height="500px",wbox_width="500px")
     
     if st.button('Get GCN Charges', key="predict_button"):
