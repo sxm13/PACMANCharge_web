@@ -3,6 +3,7 @@ from predict import predict_with_model
 from stmol import *
 import py3Dmol
 from ase.io import read, write
+from io import StringIO
 
 def convert_cif_to_xyz(cif_file, xyz_file):
     # Read the structure from CIF file
