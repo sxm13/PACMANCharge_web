@@ -1,6 +1,15 @@
 import streamlit as st
 from predict import predict_with_model
-import time 
+import py3Dmol
+
+def show_structure(cif_file):
+    viewer = py3Dmol.view(width=800, height=400)
+    with open(cif_file, 'r') as file:
+        cif_data = file.read()
+    viewer.addModel(cif_data, 'cif')
+    viewer.setStyle({'stick': {}})
+    viewer.zoomTo()
+    return viewer.show()
 
 st.markdown("""
     <style>
@@ -40,6 +49,8 @@ if uploaded_file is not None and model_option:
     bytes_data = uploaded_file.getvalue()
     with open(f'./{file_name}.cif', 'wb') as f:
         f.write(bytes_data)
+    st.markdown("### Your Structure")
+    st.markdown(show_structure(f'./{file_name}.cif'), unsafe_allow_html=True)
     if st.button('Get GCN Charges', key="predict_button"):
         prediction = predict_with_model(model_option, f'{file_name}.cif', file_name)
         if prediction is not None:
