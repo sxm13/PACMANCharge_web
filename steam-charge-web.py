@@ -53,7 +53,7 @@ if uploaded_file is not None and model_option:
     xyz_string_io = StringIO()
     write(xyz_string_io, structure, format="xyz")
     xyz_string = xyz_string_io.getvalue()
-    showmol(xyz_string, format='xyz')
+    speck_plot(xyz_string, wbox_height="700px", wbox_width="800px",component_h = 700, component_w = 800, scroll = False)
     
     if st.button('Get GCN Charges', key="predict_button"):
         prediction = predict_with_model(model_option, f'{file_name}.cif', file_name)
