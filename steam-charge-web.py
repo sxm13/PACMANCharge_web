@@ -3,14 +3,6 @@ from predict import predict_with_model
 from stmol import *
 import py3Dmol
 from ase.io import read, write
-from io import StringIO
-
-def convert_cif_to_xyz(cif_file, xyz_file):
-    # Read the structure from CIF file
-    structure = read(cif_file)
-
-    # Write the structure to an XYZ file
-    write(xyz_file, structure)
     
 st.markdown("""
     <style>
@@ -51,12 +43,9 @@ if uploaded_file is not None and model_option:
     with open(f'./{file_name}.cif', 'wb') as f:
         f.write(bytes_data)
 
-    atoms = read(file_name+".cif")
-    xyz_file_obj = StringIO()
     f = open(f'./{file_name}.cif',"r")
-    write(xyz_file_obj, atoms, format='xyz')
-    xyz_data = xyz_file_obj.read()
-    st.info(xyz_data.splitlines(), icon="✅")
+    xyz_data = f.read()
+    st.info(xyz_data.splitlines()[1], icon="✅")
     res = speck_plot(xyz_data,wbox_height="500px",wbox_width="500px")
     
     if st.button('Get GCN Charges', key="predict_button"):
