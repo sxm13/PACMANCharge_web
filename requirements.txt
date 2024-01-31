@@ -7,4 +7,5 @@ scikit-learn>=0.19.1
 joblib>= 0.13.2
 torch
 py3Dmol
+stmol==0.0.9
 streamlit
