@@ -1,5 +1,6 @@
 import streamlit as st
 from predict import predict_with_model
+import time 
 
 # Custom CSS to inject for styling
 st.markdown("""
@@ -42,11 +43,20 @@ if uploaded_file is not None and model_option:
         f.write(bytes_data)
 
     # Button to trigger the prediction process
-    if st.button('Get GCN Charges', key="predict_button", on_click=None, args=None, kwargs=None, help=None, disabled=False, label_visibility="visible", use_container_width=False):
+    if st.button('Get GCN Charges', key="predict_button"):
+        # Initialize the progress bar
+        progress_bar = st.progress(0)
+
+        # Dummy loop to simulate a task. Replace with actual prediction task
+        for i in range(100):
+            # Update progress bar
+            progress_bar.progress(i + 1)
+            time.sleep(0.1)  # Simulate a time-consuming task
+
         prediction = predict_with_model(model_option, f'{file_name}.cif', file_name)
         if prediction is not None:
             st.markdown('<span class="green-text">Please download the structure with GCN Charge</span>', unsafe_allow_html=True)
-            st.download_button(label="Download cif file with charges", data=prediction, file_name=f"{file_name}_gcn.cif", mime='text/plain', key=None, help=None, on_click=None, args=None, kwargs=None, disabled=False, icon=None)
+            st.download_button(label="Download cif file with charges", data=prediction, file_name=f"{file_name}_gcn.cif", mime='text/plain')
         else:
             st.error("No data available for download, please check your structure!")
 
