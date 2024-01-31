@@ -50,7 +50,7 @@ if uploaded_file is not None and model_option:
     with open(f'./{file_name}.cif', 'wb') as f:
         f.write(bytes_data)
 
-    atoms = read(bytes_data)
+    atoms = read(file_name+".cif")
     xyz_file_obj = StringIO()
     f = open(f'./{file_name}.cif',"r")
     write(xyz_file_obj, atoms, format='xyz')
