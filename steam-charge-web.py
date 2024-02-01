@@ -48,7 +48,7 @@ if uploaded_file is not None and model_option:
     write(xyz_string_io, structure, format="xyz")
     xyz_string = xyz_string_io.getvalue()
     
-    st.info(structure.splitlines()[1], icon="✅")
+    st.info(f.splitlines()[1], icon="✅")
 
     speck_plot(xyz_string, wbox_height="700px", wbox_width="800px",component_h = 700, component_w = 800, scroll = False)
     
