@@ -47,7 +47,7 @@ if uploaded_file is not None and model_option:
     ff = open(f'./{file_name}.cif',"r")
     form = ff.read()
     st.info(form.splitlines()[1], icon="✅")
-    res = speck_plot(form,wbox_height="10px",wbox_width="10px")
+    res = speck_plot(form,wbox_height="1px",wbox_width="10px")
     
     structure = read(uploaded_file, format='cif')
     xyz_string_io = StringIO()
