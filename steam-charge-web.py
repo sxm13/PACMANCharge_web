@@ -44,6 +44,10 @@ if uploaded_file is not None and model_option:
     with open(f'./{file_name}.cif', 'wb') as f:
         f.write(bytes_data)
     
+    ff = open('./{file_name}.cif',"r")
+    form = ff.read()
+    st.info(form.splitlines()[1], icon="✅")
+    
     structure = read(uploaded_file, format='cif')
     xyz_string_io = StringIO()
     write(xyz_string_io, structure, format="xyz")
