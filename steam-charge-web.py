@@ -43,15 +43,13 @@ if uploaded_file is not None and model_option:
     bytes_data = uploaded_file.getvalue()
     with open(f'./{file_name}.cif', 'wb') as f:
         f.write(bytes_data)
-    
-    ff = open(f'./{file_name}.cif',"r")
-    form = ff.read()
-    st.info(form.splitlines()[1], icon="✅")
-    
     structure = read(uploaded_file, format='cif')
     xyz_string_io = StringIO()
     write(xyz_string_io, structure, format="xyz")
     xyz_string = xyz_string_io.getvalue()
+    
+    st.info(xyz_string.splitlines()[1], icon="✅")
+
     speck_plot(xyz_string, wbox_height="700px", wbox_width="800px",component_h = 700, component_w = 800, scroll = False)
     
     if st.button(' :sunglasses: :red[Get GCN Charges]', key="predict_button"):
