@@ -44,7 +44,7 @@ if uploaded_file is not None and model_option:
     with open(f'./{file_name}.cif', 'wb') as f:
         f.write(bytes_data)
     
-    ff = open(uploaded_file,"r")
+    ff = open(f'./{file_name}.cif',"r")
     form = ff.read()
     st.info(form.splitlines()[1], icon="✅")
     res = speck_plot(form,wbox_height="10px",wbox_width="10px")
