@@ -80,13 +80,7 @@ from pymatgen.io.ase import AseAtomsAdaptor
 from pymatgen.io.cif import CifParser
 
 def n_atom(mof):
-    try:
-        structure = read(mof)
-        struct = AseAtomsAdaptor.get_structure(structure)
-    except:
-        struct = CifParser(mof, occupancy_tolerance=10)
-        struct.get_structures()
-    elements = [str(site.specie) for site in structure.sites]
+    elements = [str(site.specie) for site in mof.sites]
     return len(elements)
 
 st.markdown("""
