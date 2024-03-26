@@ -96,4 +96,4 @@ if uploaded_file is not None and model_option:
             st.error("No data available for download, please check your structure!")
 
 st.markdown('<span style="color:grey;">Site developed and maintained by Guobin Zhao (Prof.Chung, Yongchul G, Pusan National University)</span>', unsafe_allow_html=True)
-st.markdown("[Molecular Thermodynamics & Advance Processes Laboratory](https://sites.google.com/view/
+st.markdown("[Molecular Thermodynamics & Advance Processes Laboratory](https://sites.google.com/view/mtap-lab/home?authuser=0)")
