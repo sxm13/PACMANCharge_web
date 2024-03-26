@@ -7,6 +7,7 @@ from ase.io import read,write
 from pymatgen.io.ase import AseAtomsAdaptor
 from ase import Atoms
 from pymatgen.core import Structure
+from pymatgen.io.cif import CifParser
 
 def n_atom(mof):
     try:
