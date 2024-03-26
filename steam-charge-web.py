@@ -75,13 +75,12 @@ import json
 import warnings
 import numpy as np
 import pymatgen.core as mg
-from ase.io import read
-from pymatgen.io.ase import AseAtomsAdaptor
-from pymatgen.io.cif import CifParser
+# from pymatgen.io.ase import AseAtomsAdaptor
+# from pymatgen.io.cif import CifParser
 
-def n_atom(mof):
-    elements = [str(site.specie) for site in mof.sites]
-    return len(elements)
+# def n_atom(mof):
+#     elements = [str(site.specie) for site in mof.sites]
+#     return len(elements)
 
 st.markdown("""
     <style>
@@ -132,7 +131,7 @@ if uploaded_file is not None and model_option:
     speck_plot(xyz_string, wbox_height="700px", wbox_width="800px",component_h = 700, component_w = 800, scroll = False)
     
     if st.button(' :sunglasses: :red[Get GCN Charges]', key="predict_button"):
-        n_atoms = n_atom(structure)
+        n_atoms = len(structure)
         if n_atoms<=300:
             total_time = 3
         elif 300<n_atoms<=500:
