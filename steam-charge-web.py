@@ -42,6 +42,11 @@ st.markdown('🌟 <span class="grey-text">Cite as: A Robust Partial Atomic Charg
 
 uploaded_file = st.file_uploader("Please upload your CIF file", type="cif")
 model_option = st.radio("Type", ('MOF', 'COF'))
+st.markdown('**Digits Warning:** Please note that this model is trained on 6 decimal places.')
+digits = st.number_input("Digits", min_value=1, value=10)
+atom_type_option = st.radio("Atom Type", ('Yes', 'No'))
+neutral_option = st.radio("Neutral", ('Yes', 'No'))
+
 
 if uploaded_file is not None and model_option:
     file_name = uploaded_file.name.split('.')[0]
@@ -88,8 +93,12 @@ if uploaded_file is not None and model_option:
                 time.sleep(total_time / 100)
                 progress_bar.progress(i + 1)
         
-        prediction = predict_with_model(model_option, f'{file_name}.cif', file_name)
+        prediction, atom_type_count, net_charge = predict_with_model(model_option, f'{file_name}.cif', file_name, digits, atom_type_option, neutral_option)
         if prediction is not None:
+            if atom_type_option == 'Yes':
+                st.write(f'Number of Atom Types: {atom_type_count}')
+            if neutral_option == 'No':
+                st.write(f'Net Charge: {net_charge}')
             st.markdown('<span class="green-text">Please download the structure with GCN Charge</span>', unsafe_allow_html=True)
             st.download_button(label="Download cif file with charges", data=prediction, file_name=f"{file_name}_gcn.cif", mime='text/plain')
         else:
