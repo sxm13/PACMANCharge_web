@@ -136,17 +136,20 @@ def extract_charges_from_cif(file_path):
     with open(file_path, 'r') as file:
         lines = file.readlines()
     start_reading_charges = False
+    charges = []
     atoms = []
     for line in lines:
         if start_reading_charges:
             try:
                 atom = line.split()[0]
                 atoms.append(atom)
+                charge = float(line.split()[-1])
+                charges.append(charge)
             except ValueError:
                 continue
         if "_atom_site_charge" in line:
             start_reading_charges = True
-    return atoms
+    return atoms,charges
 
 def write4cif(name, chg, digits, atom_type_option, neutral_option, charge=False):
     new_content = []
@@ -178,14 +181,7 @@ def write4cif(name, chg, digits, atom_type_option, neutral_option, charge=False)
                 for c in charge_2:
                     charges.append(round(c, dia))
             net_charge = sum(charges)
-            atoms = extract_charges_from_cif(name + ".cif")
-            unique_counts = {}
-            for char, index in zip(atoms, charges):
-                if char not in unique_counts:
-                    unique_counts[char] = set()  # Use a set to automatically handle uniqueness
-                unique_counts[char].add(index)
-            result = {char: len(indices) for char, indices in unique_counts.items()}
-            atom_type = result
+            
         else:
             gcn_charge = chg.numpy()
             sum_chg = sum(gcn_charge)
@@ -217,4 +213,14 @@ def write4cif(name, chg, digits, atom_type_option, neutral_option, charge=False)
                 charge_index += 1
             else:
                 new_content.append(line)
+                
+        atoms, charges = extract_charges_from_cif(new_content)
+        unique_counts = {}
+        for char, index in zip(atoms, charges):
+            if char not in unique_counts:
+                unique_counts[char] = set()  # Use a set to automatically handle uniqueness
+            unique_counts[char].add(index)
+        result = {char: len(indices) for char, indices in unique_counts.items()}
+        atom_type = result
+
     return ''.join(new_content),atom_type,net_charge
