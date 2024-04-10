@@ -140,7 +140,7 @@ def write4cif(name, chg, digits, atom_type_option, neutral_option, charge=False)
             gcn_charge = chg.numpy()
             sum_chg = sum(gcn_charge)
             if neutral_option:
-                charge = average_and_replace(gcn_charge,di=3)
+                charge = average_and_replace(gcn_charge,di=2)
                 sum_chg = sum(charge)
                 charges_1 = []
                 for c in charge:
@@ -153,7 +153,7 @@ def write4cif(name, chg, digits, atom_type_option, neutral_option, charge=False)
                     cc = c - sum_chg/len(charge_2)
                     charges.append(round(cc, dia))
             else:
-                charge = average_and_replace(gcn_charge,di=3)
+                charge = average_and_replace(gcn_charge,di=2)
                 charges_1 = []
                 for c in charge:
                     charges_1.append(round(c, dia))
