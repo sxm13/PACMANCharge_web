@@ -96,6 +96,7 @@ if uploaded_file is not None and model_option:
         prediction, atom_type_count, net_charge = predict_with_model(model_option, f'{file_name}.cif', file_name, digits, atom_type_option, neutral_option)
         if prediction is not None:
             if atom_type_option == 'Yes':
+                st.write("Atom: number of type")
                 st.write(atom_type_count)
             if neutral_option == 'No':
                 st.write(f'Net Charge: {net_charge}')
