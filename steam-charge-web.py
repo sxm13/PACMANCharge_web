@@ -69,19 +69,19 @@ if uploaded_file is not None and model_option:
     if st.button(' :sunglasses: :red[Get GCN Charges]', key="predict_button"):
         # Define processing time based on number of atoms
         if n_atoms <= 300:
-            total_time = 8
+            total_time = 10
         elif 300 < n_atoms <= 500:
-            total_time = 15
+            total_time = 20
         elif 500 < n_atoms <= 1000:
-            total_time = 25
+            total_time = 30
         elif 1000 < n_atoms <= 2500:
-            total_time = 75
+            total_time = 90
         elif 2500 < n_atoms <= 5000:
-            total_time = 250
+            total_time = 300
         elif 5000 < n_atoms <= 8000:
-            total_time = 800
+            total_time = 1000
         elif 8000 < n_atoms <= 16000:
-            total_time = 2500
+            total_time = 3000
         else:
             total_time = 10000  # For more than 16000 atoms
         
