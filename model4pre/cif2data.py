@@ -194,7 +194,7 @@ def write4cif(name, chg, digits, atom_type_option, neutral_option, charge=False)
             else:
                 charges = []
                 for c in gcn_charge:
-                    charges.append(round(c, dia)
+                    charges.append(round(c, dia))
             net_charge = sum(charges)
             atom_type = "Failure to check like atoms"
         with open(name + ".cif", 'r') as file:
