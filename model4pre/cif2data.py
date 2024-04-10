@@ -8,6 +8,7 @@ from pymatgen.io.ase import AseAtomsAdaptor
 from ase import Atoms
 from pymatgen.core import Structure
 from pymatgen.io.cif import CifParser
+from collections import defaultdict
 
 def n_atom(mof):
     try:
