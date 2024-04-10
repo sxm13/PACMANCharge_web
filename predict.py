@@ -11,7 +11,7 @@ import sys
 source = importlib.import_module('model4pre')
 sys.modules['source'] = source
 
-def predict_with_model(model_name, file,name):
+def predict_with_model(model_name, file,name, digits, atom_type_option, neutral_option):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model_pbe_name = "./pth/mof_pbe/pbe-atom.pth"
     if model_name == "COF":
@@ -81,5 +81,5 @@ def predict_with_model(model_name, file,name):
             chg = model4chg(*input_var2)
             chg = chg.data.cpu()
             chg = ddec_nor.denorm(chg.data.cpu())
-            result = write4cif(name,chg,charge = True)
-    return result
+            result,atom_type_count,net_charge = write4cif(name, chg, digits, atom_type_option, neutral_option, charge = True)
+    return result,atom_type_count,net_charge 
