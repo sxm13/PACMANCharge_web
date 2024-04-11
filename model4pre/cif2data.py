@@ -152,7 +152,7 @@ def write4cif(name, chg, digits, atom_type_option, neutral_option, charge=False)
                 for c in charge:
                     cc = c - sum_chg/len(charge)
                     charges_1.append(round(cc, dia))
-                charge_2 = average_and_replace(charges_1,di=0)
+                charge_2 = average_and_replace(charges_1,di=1)
                 sum_chg = sum(charge_2)
                 charges = []
                 for c in charge_2:
@@ -163,7 +163,7 @@ def write4cif(name, chg, digits, atom_type_option, neutral_option, charge=False)
                 charges_1 = []
                 for c in charge:
                     charges_1.append(round(c, dia))
-                charge_2 = average_and_replace(charges_1,di=0)
+                charge_2 = average_and_replace(charges_1,di=1)
                 charges = []
                 for c in charge_2:
                     charges.append(round(c, dia))
