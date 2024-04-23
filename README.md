@@ -1,3 +1,3 @@
 # charge
 
-https://gcn-charge-predicter-mtap.streamlit.app/
+https://pacman-mtap.streamlit.app/
