@@ -36,7 +36,7 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-st.markdown('<h1 class="big-font">💭 MOF/COF GCN Charges Predictor</h1>', unsafe_allow_html=True)
+st.markdown('<h1 class="big-font">💭 Partial Atomic Charges Predicter for Porous Materials based on Graph Convolutional Neural Network (PACMAN)</h1>', unsafe_allow_html=True)
 st.markdown('🌟 <span class="blue-text">Contact: sxmzhaogb@gmail.com</span>', unsafe_allow_html=True)
 st.markdown('🌟 <span class="grey-text">Cite as: A Robust Partial Atomic Charge Estimator for Nanoporous Materials using Crystal Graph Convolution Network ****</span>', unsafe_allow_html=True)
 
