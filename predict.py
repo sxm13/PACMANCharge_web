@@ -18,7 +18,7 @@ sys.modules['model'] = source
 
 def predict_with_model(model_name, charge_name, file,name, digits, atom_type_option, neutral_option):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model_pbe_name = "./pth/mof_pbe/pbe-atom.pth"
+    model_pbe_name = "./pth/MOF-PBE/pbe-atom.pth"
     if model_name == "COF":
         model_ddec_name = "./pth/COF/ddec.pth"
         ddec_nor_name = "./pth/COF/normalizer-ddec.pkl"
@@ -53,7 +53,7 @@ def predict_with_model(model_name, charge_name, file,name, digits, atom_type_opt
     model4chg.cuda() if torch.cuda.is_available() else model4chg.to(device)
     model4chg.load_state_dict(chkpt_ddec['state_dict'])
     model4chg.eval()
-    for _, (input,cif_ids) in enumerate(pre_loader):
+    for _, (input,_) in enumerate(pre_loader):
         with torch.no_grad():
             if device == "cuda":
                 input_cuda = [input_tensor.to(device) for input_tensor in input]
