@@ -122,7 +122,7 @@ if uploaded_file is not None and model_option:
             if neutral_option == 'No':
                 st.write(f'Net Charge: {net_charge}')
             st.markdown('<span class="green-text">Please download the structure with PACMAN Charge</span>', unsafe_allow_html=True)
-            st.download_button(label="Download cif file with charges", data=prediction, file_name=f"{file_name}_gcn.cif", mime='text/plain')
+            st.download_button(label="Download cif file with charges", data=prediction, file_name=f"{file_name}_pacman.cif", mime='text/plain')
         else:
             st.error("No data available for download, please check your structure!")
 
