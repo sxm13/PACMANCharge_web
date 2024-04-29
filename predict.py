@@ -1,39 +1,36 @@
-import os
 import torch
 import pickle
-import numpy as np
 from model4pre.GCN_ddec import SemiFullGN
 from model4pre.data import collate_pool, get_data_loader, CIFData, load_gcn
 from model4pre.cif2data import ase_format, CIF2json, pre4pre, write4cif
 import importlib
 import sys
 
-source = importlib.import_module('model4pre')
-sys.modules['source'] = source
-sys.modules['GCNCharge'] = source
-sys.modules['source'] = source
-sys.modules['model.utils'] = source
-sys.modules['source.utils'] = source
-sys.modules['model'] = source
+sys.modules['source'] = importlib.import_module('model4pre')
+sys.modules['GCNCharge'] = importlib.import_module('model4pre')
+sys.modules['model.utils'] = importlib.import_module('model4pre.utils')
+sys.modules['source.utils'] = importlib.import_module('model4pre.utils')
+sys.modules['model'] = importlib.import_module('model4pre')
+
 
 def predict_with_model(model_name, charge_name, file,name, digits, atom_type_option, neutral_option):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model_pbe_name = "./pth/MOF-PBE/pbe-atom.pth"
     if model_name == "COF":
-        model_ddec_name = "./pth/COF/ddec.pth"
-        ddec_nor_name = "./pth/COF/normalizer-ddec.pkl"
+        charge_model_name = "./pth/COF/ddec.pth"
+        nor_name = "./pth/COF/normalizer-ddec.pkl"
     else:
         if charge_name=="DDEC":
-            model_ddec_name = "./pth/MOF-DDEC/ddec.pth"
-            ddec_nor_name = "./pth/MOF-DDEC/normalizer-ddec.pkl"
+            charge_model_name = "./pth/MOF-DDEC/ddec.pth"
+            nor_name = "./pth/MOF-DDEC/normalizer-ddec.pkl"
         elif charge_name=="Bader":
-            model_ddec_name = "./pth/MOF-Bader/bader.pth"
-            ddec_nor_name = "./pth/MOF-Bader/normalizer-bader.pkl"
+            charge_model_name = "./pth/MOF-Bader/bader.pth"
+            nor_name = "./pth/MOF-Bader/normalizer-bader.pkl"
         elif charge_name=="CM5":
-            model_ddec_name = "./pth/MOF-CM5/cm5.pth"
-            ddec_nor_name = "./pth/MOF-CM5/normalizer-cm5.pkl"
+            charge_model_name = "./pth/MOF-CM5/cm5.pth"
+            nor_name = "./pth/MOF-CM5/normalizer-cm5.pkl"
     gcn = load_gcn(model_pbe_name)
-    with open(ddec_nor_name, 'rb') as f:
+    with open(nor_name, 'rb') as f:
         ddec_nor = pickle.load(f)
     f.close()
     ase_format(file)
@@ -48,7 +45,7 @@ def predict_with_model(model_name, charge_name, file,name, digits, atom_type_opt
     structures, _, _ = pre_dataset[0]
     chg_1 = structures[0].shape[-1] + 3
     chg_2 = structures[1].shape[-1]
-    chkpt_ddec = torch.load(model_ddec_name, map_location=torch.device(device))
+    chkpt_ddec = torch.load(charge_model_name, map_location=torch.device(device))
     model4chg = SemiFullGN(chg_1,chg_2,128,8,256)
     model4chg.cuda() if torch.cuda.is_available() else model4chg.to(device)
     model4chg.load_state_dict(chkpt_ddec['state_dict'])

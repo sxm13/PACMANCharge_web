@@ -5,10 +5,6 @@ import py3Dmol
 from ase.io import read, write
 from io import StringIO
 import time
-# import json
-# import warnings
-# import numpy as np
-# import pymatgen.core as mg
 
 st.markdown("""
     <style>
