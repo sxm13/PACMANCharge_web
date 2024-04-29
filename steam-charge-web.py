@@ -35,7 +35,7 @@ st.markdown("""
 st.markdown("""
     <style>
     .title-font {
-        font-size:20px !important;
+        font-size:24px !important;
         font-weight:bold;
     }
     </style>
