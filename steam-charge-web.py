@@ -39,7 +39,7 @@ st.markdown("""
         font-weight:bold; 
     }
     .blue {
-        color: black;  
+        color: blue;  
     }
     </style>
     """, unsafe_allow_html=True)
