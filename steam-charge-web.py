@@ -55,7 +55,7 @@ charge_option = st.radio("Type", ('DDEC', 'Bader', 'CM5'))
 st.markdown("""
             <style>
             .big-font {
-            font-size:20px font-size:8px !important;
+            font-size:8px !important;
             color: black;
             }
                 </style>
@@ -66,7 +66,7 @@ digits = st.number_input("Digits", min_value=1, value=10)
 st.markdown("""
             <style>
             .big-font {
-            font-size:20px font-size:8px !important;
+            font-size:8px !important;
             color: black;
             }
                 </style>
