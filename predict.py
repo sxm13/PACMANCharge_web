@@ -34,8 +34,8 @@ def predict_with_model(model_name, charge_name, file,name, digits, atom_type_opt
         ddec_nor = pickle.load(f)
     f.close()
     ase_format(file)
-    data = CIF2json(file,save_path="")
-    lattice, pos = pre4pre(file,"","")
+    data = CIF2json(file)
+    lattice, pos = pre4pre(file)
     batch_size = 1
     num_workers = 0
     pin_memory = False
@@ -90,5 +90,5 @@ def predict_with_model(model_name, charge_name, file,name, digits, atom_type_opt
             chg = model4chg(*input_var2)
             chg = chg.data.cpu()
             chg = ddec_nor.denorm(chg.data.cpu())
-            result,atom_type_count,net_charge = write4cif(name, chg, digits, atom_type_option, neutral_option, charge = True)
+            result,atom_type_count,net_charge = write4cif(name, chg, digits, atom_type_option, neutral_option, charge_name)
     return result,atom_type_count,net_charge 
