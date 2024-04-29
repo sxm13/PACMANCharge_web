@@ -37,15 +37,14 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 st.markdown("""
-    <style>
-    .big-font {
-        font-size:30px !important;
-        color: black; 
-    }
-    </style>
-    """, unsafe_allow_html=True)
-st.markdown('<h1 class="big-font">💭 Partial Atomic Charges Predicter for Porous Materials based on Graph Convolutional Neural Network (PACMAN)</h1>', unsafe_allow_html=True)
-
+            <style>
+            .big-font {
+            font-size:30px !important;
+            color: black;
+            }
+                </style>
+            <p class="big-font">💭 Partial Atomic Charges Predicter for Porous Materials based on Graph Convolutional Neural Network (PACMAN)</p>
+            """, unsafe_allow_html=True)
 
 uploaded_file = st.file_uploader("Please upload your CIF file", type="cif")
 
@@ -55,7 +54,7 @@ charge_option = st.radio("Type", ('DDEC', 'Bader', 'CM5'))
 st.markdown("""
             <style>
             .big-font {
-            font-size:8px !important;
+            font-size:12px !important;
             color: black;
             }
                 </style>
@@ -66,7 +65,7 @@ digits = st.number_input("Digits", min_value=1, value=10)
 st.markdown("""
             <style>
             .big-font {
-            font-size:8px !important;
+            font-size:12px !important;
             color: black;
             }
                 </style>
