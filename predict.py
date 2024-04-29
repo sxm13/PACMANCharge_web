@@ -20,7 +20,7 @@ def predict_with_model(model_name, charge_name, file,name, digits, atom_type_opt
         charge_model_name = "./pth/COF/ddec.pth"
         nor_name = "./pth/COF/normalizer-ddec.pkl"
     else:
-        if charge_name=="DDEC":
+        if charge_name=="DDEC6":
             charge_model_name = "./pth/MOF-DDEC/ddec.pth"
             nor_name = "./pth/MOF-DDEC/normalizer-ddec.pkl"
         elif charge_name=="Bader":
@@ -31,7 +31,7 @@ def predict_with_model(model_name, charge_name, file,name, digits, atom_type_opt
             nor_name = "./pth/MOF-CM5/normalizer-cm5.pkl"
     gcn = load_gcn(model_pbe_name)
     with open(nor_name, 'rb') as f:
-        ddec_nor = pickle.load(f)
+        charge_nor = pickle.load(f)
     f.close()
     ase_format(file)
     data = CIF2json(file)
@@ -45,10 +45,10 @@ def predict_with_model(model_name, charge_name, file,name, digits, atom_type_opt
     structures, _, _ = pre_dataset[0]
     chg_1 = structures[0].shape[-1] + 3
     chg_2 = structures[1].shape[-1]
-    chkpt_ddec = torch.load(charge_model_name, map_location=torch.device(device))
+    chkpt = torch.load(charge_model_name, map_location=torch.device(device))
     model4chg = SemiFullGN(chg_1,chg_2,128,8,256)
     model4chg.cuda() if torch.cuda.is_available() else model4chg.to(device)
-    model4chg.load_state_dict(chkpt_ddec['state_dict'])
+    model4chg.load_state_dict(chkpt['state_dict'])
     model4chg.eval()
     for _, (input,_) in enumerate(pre_loader):
         with torch.no_grad():
@@ -89,6 +89,6 @@ def predict_with_model(model_name, charge_name, file,name, digits, atom_type_opt
                         input[9][:,:9])
             chg = model4chg(*input_var2)
             chg = chg.data.cpu()
-            chg = ddec_nor.denorm(chg.data.cpu())
+            chg = charge_nor.denorm(chg.data.cpu())
             result,atom_type_count,net_charge = write4cif(name, chg, digits, atom_type_option, neutral_option, charge_name)
     return result,atom_type_count,net_charge 

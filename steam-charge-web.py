@@ -55,9 +55,9 @@ uploaded_file = st.file_uploader("Please upload your CIF file", type="cif")
 
 model_option = st.radio("Material Type", ('MOF', 'COF'))
 if model_option == 'COF':
-    charge_option = st.radio("Charge Type", ('DDEC',))
+    charge_option = st.radio("Charge Type", ('DDEC6',))
 else:
-    charge_option = st.radio("Charge Type", ('DDEC', 'Bader', 'CM5'))
+    charge_option = st.radio("Charge Type", ('DDEC6', 'Bader', 'CM5'))
 
 st.markdown("""
             <style>
@@ -66,7 +66,7 @@ st.markdown("""
             color: black;
             }
                 </style>
-            <p class="big-font">Note: just DDEC can be used for COF .</p>
+            <p class="big-font">Note: just DDEC6 can be used for COF .</p>
             """, unsafe_allow_html=True)
 
 digits = st.number_input("Digits", min_value=1, value=10)
