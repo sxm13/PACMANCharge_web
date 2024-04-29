@@ -32,12 +32,21 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-st.title('PACMAN: : :blue[P]artial :blue[A]tomic :blue[C]harges Predicter for Porous :blue[Ma]terials based on Graph Convolutional Neural :blue[N]etwork')
+st.markdown("""
+    <style>
+    .title-font {
+        font-size:20px !important;
+        font-weight:bold;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+st.markdown('<p class="title-font">PACMAN: : :blue[P]artial :blue[A]tomic :blue[C]harges Predicter for Porous :blue[Ma]terials based on Graph Convolutional Neural :blue[N]etwork</p>', unsafe_allow_html=True)
 st.subheader('', divider='rainbow')
 
 uploaded_file = st.file_uploader("Please upload your CIF file", type="cif")
 
-model_option = st.radio("Type", ('MOF', 'COF'))
+model_option = st.radio("Material Type", ('MOF', 'COF'))
 if model_option == 'COF':
     charge_option = st.radio("Charge Type", ('DDEC',))
 else:
@@ -61,7 +70,7 @@ st.markdown("""
             color: black;
             }
                 </style>
-            <p class="big-font">Note: this model is trained on 6 decimal places.</p>
+            <p class="big-font">Note: models are trained on 6-digit data.</p>
             """, unsafe_allow_html=True)
 
 atom_type_option = st.radio("Atom Type", ('Yes', 'No'))
@@ -126,7 +135,6 @@ if uploaded_file is not None and model_option:
         else:
             st.error("No data available for download, please check your structure!")
 
-st.title(':sunglasses:')
 st.markdown('* [Source code in github](https://github.com/sxm13/PACMAN)', unsafe_allow_html=True)            
 st.markdown('* <span class="grey-text">Cite as: Zhao, Guobin and Chung, Yongchul. A Robust Partial Atomic Charge Estimator for Nanoporous Materials using Crystal Graph Convolution Network. Journal of Chemical Theory and Computation. 2024. </span>', unsafe_allow_html=True)
 st.markdown('* <span class="blue-text">Email: sxmzhaogb@gmail.com</span>', unsafe_allow_html=True)
