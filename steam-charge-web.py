@@ -35,13 +35,20 @@ st.markdown("""
 st.markdown("""
     <style>
     .title-font {
-        font-size:24px !important;
-        font-weight:bold;
+        font-size:24px;  
+        font-weight:bold; 
+    }
+    .blue {
+        color: black;  
     }
     </style>
     """, unsafe_allow_html=True)
 
-st.markdown('<p class="title-font">PACMAN: :blue[P]artial :blue[A]tomic :blue[C]harges Predicter for Porous :blue[Ma]terials based on Graph Convolutional Neural :blue[N]etwork</p>', unsafe_allow_html=True)
+st.markdown("""
+    <p class="title-font">
+        PACMAN: <span class="blue">P</span>artial <span class="blue">A</span>tomic <span class="blue">C</span>harges Predicter for Porous <span class="blue">Ma</span>terials based on Graph Convolutional Neural <span class="blue">N</span>etwork
+    </p>
+    """, unsafe_allow_html=True)
 st.subheader('', divider='rainbow')
 
 uploaded_file = st.file_uploader("Please upload your CIF file", type="cif")
