@@ -168,7 +168,7 @@ def write4cif(name, chg, digits, atom_type_option, neutral_option, charge_name):
         unique_counts = {}
         for char, index in zip(atoms, charges):
             if char not in unique_counts:
-                unique_counts[char] = set()  # Use a set to automatically handle uniqueness
+                unique_counts[char] = set()
             unique_counts[char].add(index)
         result = {char: len(indices) for char, indices in unique_counts.items()}
         atom_type = result
