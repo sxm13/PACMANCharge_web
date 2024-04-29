@@ -87,7 +87,7 @@ if uploaded_file is not None and model_option:
     n_atoms = len(structure)
     st.markdown(f'Number of atoms: **{n_atoms}**')
 
-    if st.button(':rainbow[Get GCN Charges]', key="predict_button"):
+    if st.button(':rainbow[Get PACMAN Charge]', key="predict_button"):
 
         if n_atoms <= 300:
             total_time = 15
@@ -121,7 +121,7 @@ if uploaded_file is not None and model_option:
                 st.write(atom_type_count)
             if neutral_option == 'No':
                 st.write(f'Net Charge: {net_charge}')
-            st.markdown('<span class="green-text">Please download the structure with GCN Charge</span>', unsafe_allow_html=True)
+            st.markdown('<span class="green-text">Please download the structure with PACMAN Charge</span>', unsafe_allow_html=True)
             st.download_button(label="Download cif file with charges", data=prediction, file_name=f"{file_name}_gcn.cif", mime='text/plain')
         else:
             st.error("No data available for download, please check your structure!")
