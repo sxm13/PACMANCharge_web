@@ -36,15 +36,7 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-st.markdown("""
-            <style>
-            .big-font {
-            font-size:30px !important;
-            color: black;
-            }
-                </style>
-            <p class="big-font">💭 Partial Atomic Charges Predicter for Porous Materials based on Graph Convolutional Neural Network (PACMAN)</p>
-            """, unsafe_allow_html=True)
+st.markdown(''' **PACMAN**: :red[P]artial :orange[A]tomic :green[C]harges Predicter for Porous :blue[Ma]terials based on Graph Convolutional Neural :violet[N]etwork''', unsafe_allow_html=True)   
 
 uploaded_file = st.file_uploader("Please upload your CIF file", type="cif")
 
@@ -95,8 +87,8 @@ if uploaded_file is not None and model_option:
     n_atoms = len(structure)
     st.markdown(f'Number of atoms: **{n_atoms}**')
 
-    if st.button(' :sunglasses: :red[Get GCN Charges]', key="predict_button"):
-        # Define processing time based on number of atoms
+    if st.button(' :sunglasses: :rainbow[[Get GCN Charges]', key="predict_button"):
+
         if n_atoms <= 300:
             total_time = 15
         elif 300 < n_atoms <= 500:
@@ -134,6 +126,7 @@ if uploaded_file is not None and model_option:
         else:
             st.error("No data available for download, please check your structure!")
 
-st.markdown('🌟 <span class="grey-text">Cite as: Zhao, Guobin and Chung, Yongchul. A Robust Partial Atomic Charge Estimator for Nanoporous Materials using Crystal Graph Convolution Network. Journal of Chemical Theory and Computation. 2024 ****</span>', unsafe_allow_html=True)
-st.markdown('🌟 <span class="blue-text">Email: sxmzhaogb@gmail.com</span>', unsafe_allow_html=True)
-st.markdown("[Molecular Thermodynamics & Advance Processes Laboratory](https://sites.google.com/view/mtap-lab/home?authuser=0)")
+st.markdown(':blossom: [Source code in github](https://github.com/sxm13/PACMAN)', unsafe_allow_html=True)            
+st.markdown(':blossom: <span class="grey-text">Cite as: Zhao, Guobin and Chung, Yongchul. A Robust Partial Atomic Charge Estimator for Nanoporous Materials using Crystal Graph Convolution Network. Journal of Chemical Theory and Computation. 2024. </span>', unsafe_allow_html=True)
+st.markdown(':blossom: <span class="blue-text">Email: sxmzhaogb@gmail.com</span>', unsafe_allow_html=True)
+st.markdown(":blossom: [Molecular Thermodynamics & Advance Processes Laboratory](https://sites.google.com/view/mtap-lab/home?authuser=0)")
