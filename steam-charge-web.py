@@ -38,7 +38,11 @@ st.subheader('', divider='rainbow')
 uploaded_file = st.file_uploader("Please upload your CIF file", type="cif")
 
 model_option = st.radio("Type", ('MOF', 'COF'))
-
+if model_option == 'COF':
+    charge_option = st.radio("Charge Type", ('DDEC',))
+else:
+    charge_option = st.radio("Charge Type", ('DDEC', 'Bader', 'CM5'))
+    
 charge_option = st.radio("Type", ('DDEC', 'Bader', 'CM5'))
 st.markdown("""
             <style>
