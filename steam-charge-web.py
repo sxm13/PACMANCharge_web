@@ -87,7 +87,7 @@ if uploaded_file is not None and model_option:
     n_atoms = len(structure)
     st.markdown(f'Number of atoms: **{n_atoms}**')
 
-    if st.button(' :sunglasses: :rainbow[[Get GCN Charges]', key="predict_button"):
+    if st.button(' :sunglasses: :rainbow[Get GCN Charges]', key="predict_button"):
 
         if n_atoms <= 300:
             total_time = 15
