@@ -32,7 +32,8 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-st.subheader('**PACMAN**: : [P]artial [A]tomic [C]harges Predicter for Porous [Ma]terials based on Graph Convolutional Neural [N]etwork', divider='rainbow')
+st.title('**PACMAN**: : :blue[P]artial :blue[A]tomic :blue[C]harges Predicter for Porous :blue[Ma]terials based on Graph Convolutional Neural :blue[N]etwork')
+st.subheader('', divider='rainbow')
 
 uploaded_file = st.file_uploader("Please upload your CIF file", type="cif")
 
@@ -83,7 +84,7 @@ if uploaded_file is not None and model_option:
     n_atoms = len(structure)
     st.markdown(f'Number of atoms: **{n_atoms}**')
 
-    if st.button(' :sunglasses: :rainbow[Get GCN Charges]', key="predict_button"):
+    if st.button(':rainbow[Get GCN Charges]', key="predict_button"):
 
         if n_atoms <= 300:
             total_time = 15
@@ -122,6 +123,7 @@ if uploaded_file is not None and model_option:
         else:
             st.error("No data available for download, please check your structure!")
 
+st.title(':sunglasses:')
 st.markdown('* [Source code in github](https://github.com/sxm13/PACMAN)', unsafe_allow_html=True)            
 st.markdown('* <span class="grey-text">Cite as: Zhao, Guobin and Chung, Yongchul. A Robust Partial Atomic Charge Estimator for Nanoporous Materials using Crystal Graph Convolution Network. Journal of Chemical Theory and Computation. 2024. </span>', unsafe_allow_html=True)
 st.markdown('* <span class="blue-text">Email: sxmzhaogb@gmail.com</span>', unsafe_allow_html=True)
