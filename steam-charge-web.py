@@ -41,9 +41,21 @@ st.markdown('🌟 <span class="blue-text">Contact: sxmzhaogb@gmail.com</span>', 
 st.markdown('🌟 <span class="grey-text">Cite as: A Robust Partial Atomic Charge Estimator for Nanoporous Materials using Crystal Graph Convolution Network ****</span>', unsafe_allow_html=True)
 
 uploaded_file = st.file_uploader("Please upload your CIF file", type="cif")
+
 model_option = st.radio("Type", ('MOF', 'COF'))
-st.markdown('**Digits Warning:** Please note that this model is trained on 6 decimal places.')
+
+charge_option = st.radio("Type", ('DDEC', 'Bader', 'CM5'))
+
 digits = st.number_input("Digits", min_value=1, value=10)
+st.markdown("""
+            <style>
+            .big-font {
+            font-size:20px !important;
+            }
+                </style>
+            <p class="big-font">NOte: Please note that this model is trained on 6 decimal places.</p>
+            """, unsafe_allow_html=True)
+
 atom_type_option = st.radio("Atom Type", ('Yes', 'No'))
 neutral_option = st.radio("Neutral", ('Yes', 'No'))
 
