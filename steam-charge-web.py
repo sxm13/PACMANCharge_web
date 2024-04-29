@@ -42,8 +42,7 @@ if model_option == 'COF':
     charge_option = st.radio("Charge Type", ('DDEC',))
 else:
     charge_option = st.radio("Charge Type", ('DDEC', 'Bader', 'CM5'))
-    
-charge_option = st.radio("Type", ('DDEC', 'Bader', 'CM5'))
+
 st.markdown("""
             <style>
             .big-font {
