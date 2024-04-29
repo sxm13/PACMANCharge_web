@@ -5,10 +5,10 @@ import py3Dmol
 from ase.io import read, write
 from io import StringIO
 import time
-import json
-import warnings
-import numpy as np
-import pymatgen.core as mg
+# import json
+# import warnings
+# import numpy as np
+# import pymatgen.core as mg
 
 st.markdown("""
     <style>
@@ -36,27 +36,45 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
+st.markdown("""
+    <style>
+    .big-font {
+        font-size:30px !important;
+        color: black; 
+    }
+    </style>
+    """, unsafe_allow_html=True)
 st.markdown('<h1 class="big-font">💭 Partial Atomic Charges Predicter for Porous Materials based on Graph Convolutional Neural Network (PACMAN)</h1>', unsafe_allow_html=True)
-st.markdown('🌟 <span class="blue-text">Contact: sxmzhaogb@gmail.com</span>', unsafe_allow_html=True)
-st.markdown('🌟 <span class="grey-text">Cite as: A Robust Partial Atomic Charge Estimator for Nanoporous Materials using Crystal Graph Convolution Network ****</span>', unsafe_allow_html=True)
+
 
 uploaded_file = st.file_uploader("Please upload your CIF file", type="cif")
 
 model_option = st.radio("Type", ('MOF', 'COF'))
 
 charge_option = st.radio("Type", ('DDEC', 'Bader', 'CM5'))
+st.markdown("""
+            <style>
+            .big-font {
+            font-size:20px font-size:20px !important;
+            color: black;
+            }
+                </style>
+            <p class="big-font">Note: just DDEC can be used for COF .</p>
+            """, unsafe_allow_html=True)
 
 digits = st.number_input("Digits", min_value=1, value=10)
 st.markdown("""
             <style>
             .big-font {
-            font-size:20px !important;
+            font-size:20px font-size:20px !important;
+            color: black;
             }
                 </style>
-            <p class="big-font">NOte: Please note that this model is trained on 6 decimal places.</p>
+            <p class="big-font">Note: this model is trained on 6 decimal places.</p>
             """, unsafe_allow_html=True)
 
 atom_type_option = st.radio("Atom Type", ('Yes', 'No'))
+
 neutral_option = st.radio("Neutral", ('Yes', 'No'))
 
 
@@ -105,7 +123,7 @@ if uploaded_file is not None and model_option:
                 time.sleep(total_time / 100)
                 progress_bar.progress(i + 1)
         
-        prediction, atom_type_count, net_charge = predict_with_model(model_option, f'{file_name}.cif', file_name, digits, atom_type_option, neutral_option)
+        prediction, atom_type_count, net_charge = predict_with_model(model_option, charge_option, f'{file_name}.cif', file_name, digits, atom_type_option, neutral_option)
         if prediction is not None:
             if atom_type_option == 'Yes':
                 st.write("Atom: number of type")
@@ -117,5 +135,6 @@ if uploaded_file is not None and model_option:
         else:
             st.error("No data available for download, please check your structure!")
 
-st.markdown('<span style="color:grey;">Site developed and maintained by Guobin Zhao (Prof.Chung, Yongchul G, Pusan National University)</span>', unsafe_allow_html=True)
+st.markdown('🌟 <span class="grey-text">Cite as: Zhao, Guobin and Chung, Yongchul. A Robust Partial Atomic Charge Estimator for Nanoporous Materials using Crystal Graph Convolution Network. Journal of Chemical Theory and Computation. 2024 ****</span>', unsafe_allow_html=True)
+st.markdown('🌟 <span class="blue-text">Email: sxmzhaogb@gmail.com</span>', unsafe_allow_html=True)
 st.markdown("[Molecular Thermodynamics & Advance Processes Laboratory](https://sites.google.com/view/mtap-lab/home?authuser=0)")
