@@ -1,10 +1,9 @@
 import torch
 import pickle
-from model4pre.GCN_ddec import SemiFullGN
-from model4pre.data import collate_pool, get_data_loader, CIFData, load_gcn
+from model4pre.GCN_E import GCN
+from model4pre.GCN_charge import SemiFullGN
+from model4pre.data import collate_pool, get_data_loader, CIFData
 from model4pre.cif2data import ase_format, CIF2json, pre4pre, write4cif
-import importlib
-import sys
 
 def predict_with_model(charge_name, file,name, digits, atom_type_option, neutral_option):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
