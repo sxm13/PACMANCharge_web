@@ -54,16 +54,6 @@ st.subheader('', divider='rainbow')
 uploaded_file = st.file_uploader("Please upload your CIF file", type="cif")
 charge_option = st.radio("Charge Type", ('DDEC6', 'Bader', 'CM5'))
 
-st.markdown("""
-            <style>
-            .big-font {
-            font-size:14px !important;
-            color: black;
-            }
-                </style>
-            <p class="big-font">Note: just DDEC6 can be used for COF .</p>
-            """, unsafe_allow_html=True)
-
 digits = st.number_input("Digits", min_value=1, value=6)
 st.markdown("""
             <style>
