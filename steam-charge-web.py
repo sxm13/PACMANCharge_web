@@ -81,7 +81,7 @@ atom_type_option = st.radio("Atom Type", ('Yes', 'No'))
 neutral_option = st.radio("Neutral", ('Yes', 'No'))
 
 
-if uploaded_file is not None and model_option:
+if uploaded_file is not None:
     file_name = uploaded_file.name.split('.')[0]
     bytes_data = uploaded_file.getvalue()
     with open(f'./{file_name}.cif', 'wb') as f:
