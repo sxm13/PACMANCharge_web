@@ -9,7 +9,7 @@ def predict_with_model(charge_name, file,name, digits, atom_type_option, neutral
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     if charge_name=="DDEC6":
         charge_model_name = "./pth/best_ddec/ddec.pth"
-        nor_name = "./pth/best_ddecC/normalizer-ddec.pkl"
+        nor_name = "./pth/best_ddec/normalizer-ddec.pkl"
     elif charge_name=="Bader":
         charge_model_name = "./pth/best_bader/bader.pth"
         nor_name = "./pth/best_bader/normalizer-bader.pkl"
@@ -32,7 +32,7 @@ def predict_with_model(charge_name, file,name, digits, atom_type_option, neutral
         chg_1 = batch[0].shape[-1]+3
         chg_2 = batch[1].shape[-1]
     gcn = GCN(chg_1-3, chg_2, 128, 7, 256,5) 
-    chkpt = torch.load(model_charge_name, map_location=torch.device(device))
+    chkpt = torch.load(charge_model_name, map_location=torch.device(device))
     model4chg = SemiFullGN(chg_1,chg_2,128,8,256)
     model4chg.to(device)
     model4chg.load_state_dict(chkpt['state_dict'])
