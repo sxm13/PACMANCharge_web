@@ -6,6 +6,11 @@ from model4pre.data import collate_pool, get_data_loader, CIFData
 from model4pre.cif2data import ase_format, CIF2json, pre4pre, write4cif
 
 def predict_with_model(charge_name, file,name, digits, atom_type_option, neutral_option):
+
+    result = None
+    atom_type_count = None
+    net_charge = 0
+
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     if charge_name=="DDEC6":
         charge_model_name = "./pth/best_ddec/ddec.pth"

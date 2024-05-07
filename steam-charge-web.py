@@ -1,10 +1,10 @@
-import streamlit as st
-from predict import predict_with_model
-from stmol import *
-import py3Dmol
-from ase.io import read, write
-from io import StringIO
 import time
+import py3Dmol
+from stmol import *
+import streamlit as st
+from io import StringIO
+from ase.io import read, write
+from predict import predict_with_model
 
 st.markdown("""
     <style>
@@ -52,7 +52,6 @@ st.markdown("""
 st.subheader('', divider='rainbow')
 
 uploaded_file = st.file_uploader("Please upload your CIF file", type="cif")
-
 charge_option = st.radio("Charge Type", ('DDEC6', 'Bader', 'CM5'))
 
 st.markdown("""
@@ -77,9 +76,7 @@ st.markdown("""
             """, unsafe_allow_html=True)
 
 atom_type_option = st.radio("Atom Type", ('Yes', 'No'))
-
 neutral_option = st.radio("Neutral", ('Yes', 'No'))
-
 
 if uploaded_file is not None:
     file_name = uploaded_file.name.split('.')[0]

@@ -112,7 +112,6 @@ def pre4pre(mof):
             pos.append([float(x),float(y),float(z)])
     except Exception as e:
         pass
-
     return pos
 
 def average_and_replace(numbers, di):
@@ -204,6 +203,5 @@ def write4cif(name, chg, digits, atom_type_option, neutral_option, charge_name):
             new_content.append(line.strip() + " " + str(charges[charge_index]) + "\n")
             charge_index += 1
         else:
-            new_content.append(line)
-                
+            new_content.append(line)        
     return ''.join(new_content),atom_type,net_charge
