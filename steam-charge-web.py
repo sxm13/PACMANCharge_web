@@ -53,11 +53,7 @@ st.subheader('', divider='rainbow')
 
 uploaded_file = st.file_uploader("Please upload your CIF file", type="cif")
 
-model_option = st.radio("Material Type", ('MOF', 'COF'))
-if model_option == 'COF':
-    charge_option = st.radio("Charge Type", ('DDEC6',))
-else:
-    charge_option = st.radio("Charge Type", ('DDEC6', 'Bader', 'CM5'))
+charge_option = st.radio("Charge Type", ('DDEC6', 'Bader', 'CM5'))
 
 st.markdown("""
             <style>
@@ -130,7 +126,7 @@ if uploaded_file is not None and model_option:
                 time.sleep(total_time / 100)
                 progress_bar.progress(i + 1)
         
-        prediction, atom_type_count, net_charge = predict_with_model(model_option, charge_option, f'{file_name}.cif', file_name, digits, atom_type_option, neutral_option)
+        prediction, atom_type_count, net_charge = predict_with_model(charge_option, f'{file_name}.cif', file_name, digits, atom_type_option, neutral_option)
         if prediction is not None:
             if atom_type_option == 'Yes':
                 st.write("Atom: number of type")
