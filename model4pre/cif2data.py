@@ -100,9 +100,11 @@ def pre4pre(mof):
                 structure = CifParser(mof, occupancy_tolerance=10)
                 structure.get_structures()
         coords = structure.frac_coords
-        elements = [str(site.specie) for site in structure.sites]
+        try:
+            elements = [str(site.specie) for site in structure.sites]
+        except:
+            elements = [str(site.species) for site in structure.sites]
         pos = []
-        lattice = structure.lattice.matrix
         for i in range(len(elements)):
             x = coords[i][0]
             y = coords[i][1]
@@ -110,7 +112,8 @@ def pre4pre(mof):
             pos.append([float(x),float(y),float(z)])
     except Exception as e:
         pass
-    return lattice, pos
+
+    return pos
 
 def average_and_replace(numbers, di):
     groups = defaultdict(list)
@@ -140,7 +143,7 @@ def write4cif(name, chg, digits, atom_type_option, neutral_option, charge_name):
         gcn_charge = chg.numpy()
         sum_chg = sum(gcn_charge)
         if neutral_option:
-            charge = average_and_replace(gcn_charge,di=2)
+            charge = average_and_replace(gcn_charge,di=3)
             sum_chg = sum(charge)
             charges_1 = []
             for c in charge:
@@ -153,7 +156,7 @@ def write4cif(name, chg, digits, atom_type_option, neutral_option, charge_name):
                 cc = c - sum_chg/len(charge_2)
                 charges.append(round(cc, dia))
         else:
-            charge = average_and_replace(gcn_charge,di=2)
+            charge = average_and_replace(gcn_charge,di=3)
             charges_1 = []
             for c in charge:
                 charges_1.append(round(c, dia))
