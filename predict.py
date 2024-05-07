@@ -61,6 +61,7 @@ def predict_with_model(charge_name, file,name, digits, atom_type_option, neutral
                             input[5].to(device),
                             encoder_feature.to(device))
                 chg = model4chg(*input_var2)
-                chg = charge_nor.denorm(chg.data.cpu())
-                result,atom_type_count,net_charge = write4cif(name, chg, digits, atom_type_option, neutral_option, charge_name)
+                charge_pre = charge_nor.denorm(chg.data.cpu())
+                print(charge_pre)
+                result,atom_type_count,net_charge = write4cif(name, charge_pre, digits, atom_type_option, neutral_option, charge_name)
     return result,atom_type_count,net_charge 
