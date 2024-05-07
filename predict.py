@@ -5,7 +5,7 @@ from model4pre.GCN_charge import SemiFullGN
 from model4pre.data import collate_pool, get_data_loader, CIFData
 from model4pre.cif2data import ase_format, CIF2json, pre4pre, write4cif
 
-def predict_with_model(charge_name, file,name, digits, atom_type_option, neutral_option):
+def predict_with_model(charge_name, file, name, digits, atom_type_option, neutral_option):
 
     result = None
     atom_type_count = None
@@ -44,24 +44,22 @@ def predict_with_model(charge_name, file,name, digits, atom_type_option, neutral
     model4chg.eval()
     for _, (input) in enumerate(pre_loader):
         with torch.no_grad():
-            if device == "cuda":
-                input_var = (input[0].to(device),
-                            input[1].to(device),
-                            input[2].to(device),
-                            input[3].to(device),
-                            input[4].to(device),
-                            input[5].to(device))
-                encoder_feature = gcn.Encoding(*input_var)
-                atoms_fea = torch.cat((input[0],input[7]),dim=-1)
-                input_var2 = (atoms_fea.to(device),
-                            input[1].to(device),
-                            input[2].to(device),
-                            input[3].to(device),
-                            input[4].to(device),
-                            input[5].to(device),
-                            encoder_feature.to(device))
-                chg = model4chg(*input_var2)
-                charge_pre = charge_nor.denorm(chg.data.cpu())
-                print(charge_pre)
-                result,atom_type_count,net_charge = write4cif(name, charge_pre, digits, atom_type_option, neutral_option, charge_name)
+            input_var = (input[0].to(device),
+                        input[1].to(device),
+                        input[2].to(device),
+                        input[3].to(device),
+                        input[4].to(device),
+                        input[5].to(device))
+            encoder_feature = gcn.Encoding(*input_var)
+            atoms_fea = torch.cat((input[0],input[7]),dim=-1)
+            input_var2 = (atoms_fea.to(device),
+                        input[1].to(device),
+                        input[2].to(device),
+                        input[3].to(device),
+                        input[4].to(device),
+                        input[5].to(device),
+                        encoder_feature.to(device))
+            chg = model4chg(*input_var2)
+            charge_pre = charge_nor.denorm(chg.data.cpu())
+            result,atom_type_count,net_charge = write4cif(name, charge_pre, digits, atom_type_option, neutral_option, charge_name)
     return result,atom_type_count,net_charge 
