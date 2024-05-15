@@ -81,6 +81,22 @@ if uploaded_file is not None:
     formula = structure.get_chemical_formula()
     st.info(f"Formula: {formula}", icon="✅")
 
+    def speck_plot(xyz_string, wbox_height="700px", wbox_width="800px", component_h=700, component_w=800, scroll=False, show_unit_cell=False):
+        view = py3Dmol.view(width=component_w, height=component_h)
+        view.addModel(xyz_string, 'xyz')
+        view.setStyle({'stick': {}})
+        
+        if show_unit_cell:
+            view.addUnitCell() 
+        view.zoomTo()
+        view.show()
+        
+        from IPython.display import display, IFrame
+        tmp_path = "temp.html"
+        with open(tmp_path, 'w') as f:
+            f.write(view._make_html())
+        display(IFrame(tmp_path, width=wbox_width, height=wbox_height))
+    
     speck_plot(xyz_string, wbox_height="700px", wbox_width="800px",component_h = 700, component_w = 800, scroll = False)
     
     n_atoms = len(structure)
@@ -125,7 +141,7 @@ if uploaded_file is not None:
         else:
             st.error("No data available for download, please check your structure!")
 
-st.markdown('* [Source code in github](https://github.com/sxm13/PACMAN)', unsafe_allow_html=True)            
+st.markdown('* [Source code in github](https://github.com/mtap-research/PACMAN-charge)', unsafe_allow_html=True)            
 st.markdown('* <span class="grey-text">Cite as: Zhao, Guobin and Chung, Yongchul. A Robust Partial Atomic Charge Estimator for Nanoporous Materials using Crystal Graph Convolution Network. 2024. </span>', unsafe_allow_html=True)
 st.markdown('* <span class="blue-text">Email: sxmzhaogb@gmail.com</span>', unsafe_allow_html=True)
 st.markdown("* [Molecular Thermodynamics & Advance Processes Laboratory](https://sites.google.com/view/mtap-lab/home?authuser=0)")
