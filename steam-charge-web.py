@@ -90,12 +90,6 @@ if uploaded_file is not None:
             view.addUnitCell() 
         view.zoomTo()
         view.show()
-        
-        from IPython.display import display, IFrame
-        tmp_path = "temp.html"
-        with open(tmp_path, 'w') as f:
-            f.write(view._make_html())
-        display(IFrame(tmp_path, width=wbox_width, height=wbox_height))
     
     speck_plot(xyz_string, wbox_height="700px", wbox_width="800px",component_h = 700, component_w = 800, scroll = False)
     
