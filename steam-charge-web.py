@@ -81,15 +81,15 @@ if uploaded_file is not None:
     formula = structure.get_chemical_formula()
     st.info(f"Formula: {formula}", icon="✅")
 
-    def speck_plot(xyz_string, wbox_height="700px", wbox_width="800px", component_h=700, component_w=800, scroll=False, show_unit_cell=False):
-        view = py3Dmol.view(width=component_w, height=component_h)
-        view.addModel(xyz_string, 'xyz')
-        view.setStyle({'stick': {}})
+    # def speck_plot(xyz_string, wbox_height="700px", wbox_width="800px", component_h=700, component_w=800, scroll=False, show_unit_cell=False):
+    #     view = py3Dmol.view(width=component_w, height=component_h)
+    #     view.addModel(xyz_string, 'xyz')
+    #     view.setStyle({'stick': {}})
         
-        if show_unit_cell:
-            view.addUnitCell() 
-        view.zoomTo()
-        view.show()
+    #     if show_unit_cell:
+    #         view.addUnitCell() 
+    #     view.zoomTo()
+    #     view.show()
     
     speck_plot(xyz_string, wbox_height="700px", wbox_width="800px",component_h = 700, component_w = 800, scroll = False, show_unit_cell=True)
     
