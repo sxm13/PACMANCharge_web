@@ -21,6 +21,9 @@ def predict_with_model(charge_name, file, name, digits, atom_type_option, neutra
     elif charge_name=="CM5":
         charge_model_name = "./pth/best_cm5/cm5.pth"
         nor_name = "./pth/best_cm5/normalizer-cm5.pkl"
+    elif charge_name=="REPEAT":
+        charge_model_name = "./pth/best_repeat/repeat.pth"
+        nor_name = "./pth/best_repeat/normalizer-repeat.pkl"
     with open(nor_name, 'rb') as f:
         charge_nor = pickle.load(f)
     f.close()

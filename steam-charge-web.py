@@ -46,13 +46,13 @@ st.markdown("""
 
 st.markdown("""
     <p class="title-font">
-        PACMAN: <span class="blue">P</span>artial <span class="blue">A</span>tomic <span class="blue">C</span>harges Predicter for Porous <span class="blue">Ma</span>terials based on Graph Convolutional Neural <span class="blue">N</span>etwork
+        PACMAN: A <span class="blue">P</span>artial <span class="blue">A</span>tomic <span class="blue">C</span>harges Predicter for Porous <span class="blue">Ma</span>terials based on Graph Convolutional Neural <span class="blue">N</span>etwork
     </p>
     """, unsafe_allow_html=True)
 st.subheader('', divider='rainbow')
 
 uploaded_file = st.file_uploader("Please upload your CIF file", type="cif")
-charge_option = st.radio("Charge Type", ('DDEC6', 'Bader', 'CM5'))
+charge_option = st.radio("Charge Type", ('DDEC6', 'Bader', 'CM5', 'REPEAT'))
 
 digits = st.number_input("Digits", min_value=1, value=6)
 st.markdown("""
