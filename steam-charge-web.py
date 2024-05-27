@@ -84,8 +84,7 @@ if uploaded_file is not None:
     try:
         structure = read(uploaded_file, format='cif')
     except:
-        structure = read(ensure_data(uploaded_file))
-        structure = read(uploaded_file, format='cif')
+        structure = read(ensure_data(bytes_data))
     xyz_string_io = StringIO()
     write(xyz_string_io, structure, format="xyz")
     xyz_string = xyz_string_io.getvalue()
