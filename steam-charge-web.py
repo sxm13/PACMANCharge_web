@@ -46,7 +46,7 @@ st.markdown("""
 
 st.markdown("""
     <p class="title-font">
-        PACMAN: A <span class="blue">P</span>artial <span class="blue">A</span>tomic <span class="blue">C</span>harges Predicter for Porous <span class="blue">Ma</span>terials based on Graph Convolutional Neural <span class="blue">N</span>etwork
+        PACMAN: A <span class="blue">P</span>artial <span class="blue">A</span>tomic <span class="blue">C</span>harge Predicter for Porous <span class="blue">Ma</span>terials based on Graph Convolutional Neural <span class="blue">N</span>etwork
     </p>
     """, unsafe_allow_html=True)
 st.subheader('', divider='rainbow')
@@ -59,7 +59,7 @@ st.markdown("""
             <style>
             .big-font {
             font-size:14px !important;
-            color: black;
+            color: grey;
             }
                 </style>
             <p class="big-font">Note: models are trained on 6-digit data.</p>
@@ -126,6 +126,6 @@ if uploaded_file is not None:
             st.error("No data available for download, please check your structure!")
 
 st.markdown('* [Source code in github](https://github.com/mtap-research/PACMAN-charge)', unsafe_allow_html=True)            
-st.markdown('* <span class="grey-text">Cite as: Zhao, Guobin and Chung, Yongchul. A Robust Partial Atomic Charge Estimator for Nanoporous Materials using Crystal Graph Convolution Network. 2024. </span>', unsafe_allow_html=True)
+st.markdown('* <span class="grey-text">Cite as: Zhao, Guobin and Chung, Yongchul. PACMAN: A Robust Partial Atomic Charge Predicter for Nanoporous Materials based on Crystal Graph Convolution Network. 2024. </span>', unsafe_allow_html=True)
 st.markdown('* <span class="blue-text">Email: sxmzhaogb@gmail.com</span>', unsafe_allow_html=True)
 st.markdown("* [Molecular Thermodynamics & Advance Processes Laboratory](https://sites.google.com/view/mtap-lab/home?authuser=0)")
