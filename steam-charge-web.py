@@ -6,9 +6,7 @@ from io import StringIO
 from ase.io import read, write
 from predict import predict_with_model
 
-def ensure_data(file_path):
-    with open(file_path, 'r') as file:
-        lines = file.readlines()
+def ensure_data(lines):
     if not lines[1].strip().startswith('data_'):
         lines.insert(1, 'data_struc\n')
 
