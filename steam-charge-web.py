@@ -6,12 +6,6 @@ from io import StringIO
 from ase.io import read, write
 from predict import predict_with_model
 
-def ensure_data(lines):
-    if not lines[1].strip().startswith('data_'):
-        lines.insert(1, 'data_struc\n')
-
-    return lines
-
 st.markdown("""
     <style>
     .big-font {
@@ -79,10 +73,7 @@ if uploaded_file is not None:
     bytes_data = uploaded_file.getvalue()
     with open(f'./{file_name}.cif', 'wb') as f:
         f.write(bytes_data)
-    try:
-        structure = read(uploaded_file, format='cif')
-    except:
-        structure = read(ensure_data(bytes_data))
+    structure = read(uploaded_file, format='cif')
     xyz_string_io = StringIO()
     write(xyz_string_io, structure, format="xyz")
     xyz_string = xyz_string_io.getvalue()
