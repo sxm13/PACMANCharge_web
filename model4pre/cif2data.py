@@ -7,6 +7,14 @@ from pymatgen.core import Structure
 from pymatgen.io.cif import CifParser
 from collections import defaultdict
 
+def ensure_data(file_path):
+    with open(file_path, 'r') as file:
+        lines = file.readlines()
+    if not lines[1].strip().startswith('data_'):
+        lines.insert(1, 'data_struc\n')
+        with open(file_path, 'w') as file:
+            file.writelines(lines)
+
 def n_atom(mof):
     try:
         structure = read(mof)
@@ -33,7 +41,7 @@ def ase_format(mof):
             write(mof, struc)
             print('Reading by ase: ' + mof)
         except:
-            print("An error occurred while reading: " + mof)
+            ensure_data(mof)
 
 periodic_table_symbols = [
     'H', 'He', 'Li', 'Be', 'B', 'C', 'N', 'O', 'F', 'Ne', 'Na', 'Mg',
