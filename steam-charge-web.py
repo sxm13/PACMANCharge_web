@@ -52,6 +52,15 @@ st.markdown("""
 st.subheader('', divider='rainbow')
 
 uploaded_file = st.file_uploader("Please upload your CIF file", type="cif")
+st.markdown("""
+            <style>
+            .big-font {
+            font-size:14px !important;
+            color: grey;
+            }
+                </style>
+            <p class="big-font">Note: Your CIF file must can be read by ASE or Pymatgen (check is there a "data_" word in you CIF flie).</p>
+            """, unsafe_allow_html=True)
 charge_option = st.radio("Charge Type", ('DDEC6', 'Bader', 'CM5', 'REPEAT'))
 
 digits = st.number_input("Digits", min_value=1, value=6)
