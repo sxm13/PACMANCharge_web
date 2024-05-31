@@ -46,7 +46,7 @@ st.markdown("""
 
 st.markdown("""
     <p class="title-font">
-        PACMAN: A <span class="blue">P</span>artial <span class="blue">A</span>tomic <span class="blue">C</span>harge Predicter for Porous <span class="blue">Ma</span>terials based on Graph Convolutional Neural <span class="blue">N</span>etwork
+        PACMAN: A <span class="blue">P</span>artial <span class="blue">A</span>tomic <span class="blue">C</span>harge Predicter for Porous <span class="blue">Ma</span>terials based on Graph Convolutional Neural <span class="blue">N</span>etworks
     </p>
     """, unsafe_allow_html=True)
 st.subheader('', divider='rainbow')
@@ -58,7 +58,7 @@ st.markdown("""
             font-size:14px !important;
             color: grey;
             }
-                </style>
+                </style>s
             <p class="big-font">Note: Your CIF file must can be read by ASE or Pymatgen (check is there a "data_" word in you CIF flie).</p>
             """, unsafe_allow_html=True)
 charge_option = st.radio("Charge Type", ('DDEC6', 'Bader', 'CM5', 'REPEAT'))
@@ -138,3 +138,13 @@ st.markdown('* [Source code in github](https://github.com/mtap-research/PACMAN-c
 st.markdown('* <span class="grey-text">Cite as: Zhao, Guobin and Chung, Yongchul. PACMAN: A Robust Partial Atomic Charge Predicter for Nanoporous Materials based on Crystal Graph Convolution Network. 2024. </span>', unsafe_allow_html=True)
 st.markdown('* <span class="blue-text">Email: sxmzhaogb@gmail.com</span>', unsafe_allow_html=True)
 st.markdown("* [Molecular Thermodynamics & Advance Processes Laboratory](https://sites.google.com/view/mtap-lab/home?authuser=0)")
+
+st.markdown("""
+            <style>
+            .big-font {
+            font-size:14px !important;
+            color: grey;
+            }
+                </style>
+            <p class="big-font">Version 1.1.</p>
+            """, unsafe_allow_html=True)
