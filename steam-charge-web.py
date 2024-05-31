@@ -58,7 +58,7 @@ st.markdown("""
             font-size:14px !important;
             color: grey;
             }
-                </style>s
+                </style>
             <p class="big-font">Note: Your CIF file must can be read by ASE or Pymatgen (check is there a "data_" word in you CIF flie).</p>
             """, unsafe_allow_html=True)
 charge_option = st.radio("Charge Type", ('DDEC6', 'Bader', 'CM5', 'REPEAT'))
