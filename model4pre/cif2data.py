@@ -195,8 +195,8 @@ def write4cif(name, chg, digits, atom_type_option, neutral_option, charge_name):
         atom_type = "Failure to check like atoms"
     with open(name + ".cif", 'r') as file:
         lines = file.readlines()
-    new_content.append(charge_name + " charges by PACMAN v1.1 (https://github.com/mtap-research/PACMAN-charge) \n")
-    new_content.append("data_structure\n")
+    new_content.append("# "+charge_name + " charges by PACMAN v1.1 (https://github.com/mtap-research/PACMAN-charge) \n")
+    new_content.append("data_"+name+"_pacman\n")
     charge_inserted = False
     charge_index = 0
     for line in lines:
