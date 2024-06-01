@@ -135,7 +135,7 @@ if uploaded_file is not None:
             st.error("No data available for download, please check your structure!")
 
 st.markdown('* [Source code in github](https://github.com/mtap-research/PACMAN-charge)', unsafe_allow_html=True)            
-st.markdown('* <span class="grey-text">Cite as: Zhao, Guobin and Chung, Yongchul. PACMAN: A Robust Partial Atomic Charge Predicter for Nanoporous Materials based on Crystal Graph Convolution Network. 2024. </span>', unsafe_allow_html=True)
+st.markdown('* <span class="grey-text">Cite as: [Zhao, Guobin and Chung, Yongchul. PACMAN: A Robust Partial Atomic Charge Predicter for Nanoporous Materials based on Crystal Graph Convolution Network. 2024](https://pubs.acs.org/doi/10.1021/acs.jctc.4c00434). </span>', unsafe_allow_html=True)
 st.markdown('* <span class="blue-text">Email: sxmzhaogb@gmail.com</span>', unsafe_allow_html=True)
 st.markdown("* [Molecular Thermodynamics & Advance Processes Laboratory](https://sites.google.com/view/mtap-lab/home?authuser=0)")
 
