@@ -150,24 +150,24 @@ def write4cif(name, chg, digits, atom_type_option, neutral_option, charge_name):
         gcn_charge = chg.numpy()
         sum_chg = sum(gcn_charge)
         if neutral_option:
-            charge = average_and_replace(gcn_charge,di=3)
+            charge = average_and_replace(gcn_charge, di=3)
             sum_chg = sum(charge)
             charges_1 = []
             for c in charge:
-                cc = c - sum_chg/len(charge)
+                cc = c - sum_chg / len(charge)
                 charges_1.append(round(cc, dia))
-            charge_2 = average_and_replace(charges_1,di=2)
+            charge_2 = average_and_replace(charges_1, di=2)
             sum_chg = sum(charge_2)
             charges = []
             for c in charge_2:
-                cc = c - sum_chg/len(charge_2)
+                cc = c - sum_chg / len(charge_2)
                 charges.append(round(cc, dia))
         else:
-            charge = average_and_replace(gcn_charge,di=3)
+            charge = average_and_replace(gcn_charge, di=3)
             charges_1 = []
             for c in charge:
                 charges_1.append(round(c, dia))
-            charge_2 = average_and_replace(charges_1,di=2)
+            charge_2 = average_and_replace(charges_1, di=2)
             charges = []
             for c in charge_2:
                 charges.append(round(c, dia))
@@ -186,30 +186,34 @@ def write4cif(name, chg, digits, atom_type_option, neutral_option, charge_name):
         gcn_charge = chg.numpy()
         sum_chg = sum(gcn_charge)
         if neutral_option:
-            charges = [round(c - sum_chg/len(gcn_charge), dia) for c in gcn_charge]
+            charges = [round(c - sum_chg / len(gcn_charge), dia) for c in gcn_charge]
         else:
             charges = []
             for c in gcn_charge:
                 charges.append(round(c, dia))
         net_charge = sum(charges)
         atom_type = "Failure to check like atoms"
+
     with open(name + ".cif", 'r') as file:
         lines = file.readlines()
-    new_content.append("# "+charge_name + " charges by PACMAN v1.1 (https://github.com/mtap-research/PACMAN-charge) \n")
-    # new_content.append("data_"+name+"_pacman\n")
+    
+    new_content.append("# " + charge_name + " charges by PACMAN v1.1 (https://github.com/mtap-research/PACMAN-charge) \n")
     charge_inserted = False
     charge_index = 0
+    
     for line in lines:
         line = line.replace('_space_group_name_H-M_alt', '_symmetry_space_group_name_H-M')
         line = line.replace('_space_group_IT_number', '_symmetry_Int_Tables_number')
         line = line.replace('_space_group_symop_operation_xyz', '_symmetry_equiv_pos_as_xyz')
+        
         if '_atom_site_occupancy' in line and not charge_inserted:
             new_content.append(line)
             new_content.append("  _atom_site_charge\n")
             charge_inserted = True
         elif charge_inserted and charge_index < len(charges):
-            new_content.append(line.strip() + " " + str(charges[charge_index]) + "\n")
+            new_content.append(line.strip() + " " + format(charges[charge_index], f".{dia}f") + "\n")
             charge_index += 1
         else:
-            new_content.append(line)        
-    return ''.join(new_content),atom_type,net_charge
+            new_content.append(line)
+    
+    return ''.join(new_content), atom_type, net_charge
