@@ -1,4 +1,4 @@
-numpy>=1.13.3
+numpy<2.0
 pymatgen>=2018.6.11
 ase>=3.19
 tqdm>=4.15
