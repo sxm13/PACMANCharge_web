@@ -206,14 +206,27 @@ def write4cif(name, chg, digits, atom_type_option, neutral_option, charge_name):
         line = line.replace('_space_group_IT_number', '_symmetry_Int_Tables_number')
         line = line.replace('_space_group_symop_operation_xyz', '_symmetry_equiv_pos_as_xyz')
         
+        # 处理每一行中的浮点数，确保其格式化为8位小数
+        parts = line.split()
+        formatted_line = []
+        for part in parts:
+            try:
+                # 如果是浮点数且不是charges中的一部分，则格式化为8位小数
+                if not charge_inserted or charge_index >= len(charges):
+                    part = format(float(part), ".8f")
+            except ValueError:
+                pass  # 如果不是浮点数，直接跳过
+            formatted_line.append(part)
+        formatted_line = " ".join(formatted_line)
+        
         if '_atom_site_occupancy' in line and not charge_inserted:
-            new_content.append(line)
+            new_content.append(formatted_line + "\n")
             new_content.append("  _atom_site_charge\n")
             charge_inserted = True
         elif charge_inserted and charge_index < len(charges):
-            new_content.append(line.strip() + " " + format(charges[charge_index], f".{dia}f") + "\n")
+            new_content.append(formatted_line.strip() + " " + format(charges[charge_index], f".{dia}f") + "\n")
             charge_index += 1
         else:
-            new_content.append(line)
+            new_content.append(formatted_line + "\n")
     
     return ''.join(new_content), atom_type, net_charge
