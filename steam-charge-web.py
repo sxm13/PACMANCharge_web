@@ -93,7 +93,7 @@ if uploaded_file is not None:
     
     st.write("CIF file successfully read.")
 
-   try:
+    try:
         structure = read(temp_file_path, format='cif')
         
         xyz_string_io = StringIO()
