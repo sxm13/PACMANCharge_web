@@ -80,17 +80,36 @@ neutral_option = st.radio("Neutral", ('Yes', 'No'))
 if uploaded_file is not None:
     file_name = uploaded_file.name.split('.')[0]
     bytes_data = uploaded_file.getvalue()
+    
+    st.write("Uploading CIF file...")
     with open(f'./{file_name}.cif', 'wb') as f:
         f.write(bytes_data)
-    structure = read(uploaded_file, format='cif')
+    
+    try:
+        structure = read(uploaded_file, format='cif')
+    except Exception as e:
+        st.error(f"Error reading CIF file: {e}")
+        st.stop()
+    
+    st.write("CIF file successfully read.")
+    
     xyz_string_io = StringIO()
-    write(xyz_string_io, structure, format="xyz")
+    try:
+        write(xyz_string_io, structure, format="xyz")
+    except Exception as e:
+        st.error(f"Error writing XYZ format: {e}")
+        st.stop()
+    
     xyz_string = xyz_string_io.getvalue()
     
     formula = structure.get_chemical_formula()
     st.info(f"Formula: {formula}", icon="✅")
     
-    speck_plot(xyz_string, wbox_height="700px", wbox_width="800px",component_h = 700, component_w = 800, scroll = False)
+    try:
+        speck_plot(xyz_string, wbox_height="700px", wbox_width="800px", component_h=700, component_w=800, scroll=False)
+    except Exception as e:
+        st.error(f"Error displaying structure: {e}")
+        st.stop()
     
     n_atoms = len(structure)
     st.markdown(f'Number of atoms: **{n_atoms}**')
