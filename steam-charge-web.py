@@ -93,38 +93,27 @@ if uploaded_file is not None:
     
     st.write("CIF file successfully read.")
 
-    structure = read(uploaded_file, format='cif')
+   try:
+        structure = read(temp_file_path, format='cif')
+        
+        xyz_string_io = StringIO()
+        write(xyz_string_io, structure, format="xyz")
+        xyz_string = xyz_string_io.getvalue()
+        
+        xyzview = py3Dmol.view(width=800, height=500)
+        xyzview.addModel(xyz_string, "xyz")
+        xyzview.setStyle({'stick': {}})
+        xyzview.zoomTo()
+        
+        showmol(xyzview, height=500, width=800)
 
-    xyz_string_io = StringIO()
-    write(xyz_string_io, structure, format="xyz")
-    xyz_string = xyz_string_io.getvalue()
-    xyzview = py3Dmol.view(width=800, height=500)
-    xyzview.addModel(xyz_string, "xyz")
-    xyzview.setStyle({'stick': {}})
-    xyzview.zoomTo()
-    showmol(xyzview, height=500, width=800)
-    
-    
-    # xyz_string_io = StringIO()
-    # try:
-    #     write(xyz_string_io, structure, format="xyz")
-    # except Exception as e:
-    #     st.error(f"Error writing XYZ format: {e}")
-    #     st.stop()
-    
-    # xyz_string = xyz_string_io.getvalue()
-    
-    # formula = structure.get_chemical_formula()
-    # st.info(f"Formula: {formula}", icon="✅")
-    
-    # try:
-    #     speck_plot(xyz_string, wbox_height="700px", wbox_width="800px", component_h=700, component_w=800, scroll=False)
-    # except Exception as e:
-    #     st.error(f"Error displaying structure: {e}")
-    #     st.stop()
-    
-    n_atoms = len(structure)
-    st.markdown(f'Number of atoms: **{n_atoms}**')
+        formula = structure.get_chemical_formula()
+        n_atoms = len(structure)
+        st.markdown(f"**Chemical Formula:** {formula}")
+        st.markdown(f"**Number of Atoms:** {n_atoms}")
+        
+    except Exception as e:
+        st.error(f"Error processing CIF file: {e}")
 
     if st.button(':rainbow[Get PACMAN Charge]', key="predict_button"):
 
