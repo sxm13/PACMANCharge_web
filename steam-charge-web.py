@@ -101,11 +101,11 @@ if uploaded_file is not None:
         
 
 
-         _xyz = st.text_area(
-                    label = "Enter xyz coordinates below ⬇️",
-                    value = xyz_string, height  = 200)
-        st.success(_xyz.splitlines()[1],icon="✅")
-        res = speck_plot(_xyz,wbox_height="500px",wbox_width="500px")
+        #  _xyz = st.text_area(
+        #             label = "Enter xyz coordinates below ⬇️",
+        #             value = xyz_string, height  = 200)
+        # st.success(_xyz.splitlines()[1],icon="✅")
+        # res = speck_plot(_xyz,wbox_height="500px",wbox_width="500px")
 
 
 
