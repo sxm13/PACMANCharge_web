@@ -96,9 +96,19 @@ if uploaded_file is not None:
         xyzview.addModel(xyz_string, "xyz")
         xyzview.setStyle({'stick': {}})
         xyzview.zoomTo()
-        
         showmol(xyzview, height=500, width=800)
-        res = speck_plot(xyz_string,wbox_height="500px",wbox_width="500px")
+
+        
+
+
+         _xyz = st.text_area(
+                    label = "Enter xyz coordinates below ⬇️",
+                    value = xyz_string, height  = 200)
+        st.success(_xyz.splitlines()[1],icon="✅")
+        res = speck_plot(_xyz,wbox_height="500px",wbox_width="500px")
+
+
+
         
         formula = structure.get_chemical_formula()
         n_atoms = len(structure)
