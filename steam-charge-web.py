@@ -98,6 +98,7 @@ if uploaded_file is not None:
         xyzview.zoomTo()
         
         showmol(xyzview, height=500, width=800)
+        res = speck_plot(xyz_string,wbox_height="500px",wbox_width="500px")
         
         formula = structure.get_chemical_formula()
         n_atoms = len(structure)
