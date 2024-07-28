@@ -78,34 +78,27 @@ atom_type_option = st.radio("Atom Type", ('Yes', 'No'))
 neutral_option = st.radio("Neutral", ('Yes', 'No'))
 
 if uploaded_file is not None:
-    # 将上传的文件保存到临时路径
     file_name = uploaded_file.name.split('.')[0]
     bytes_data = uploaded_file.getvalue()
     
     try:
-        # 写入文件
         temp_file_path = f'./{file_name}.cif'
         with open(temp_file_path, 'wb') as f:
             f.write(bytes_data)
         
-        # 读取 CIF 文件并转换为结构对象
         structure = read(temp_file_path, format='cif')
         
-        # 将结构转换为 XYZ 格式的字符串
         xyz_string_io = StringIO()
         write(xyz_string_io, structure, format="xyz")
         xyz_string = xyz_string_io.getvalue()
         
-        # 使用 py3Dmol 显示 XYZ 文件内容
         xyzview = py3Dmol.view(width=800, height=500)
         xyzview.addModel(xyz_string, "xyz")
         xyzview.setStyle({'stick': {}})
         xyzview.zoomTo()
         
-        # 使用 stmol 显示模型
         showmol(xyzview, height=500, width=800)
         
-        # 显示 CIF 文件信息
         formula = structure.get_chemical_formula()
         n_atoms = len(structure)
         st.markdown(f"**Chemical Formula:** {formula}")
