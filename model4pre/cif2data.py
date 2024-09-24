@@ -200,7 +200,7 @@ def write4cif(name, chg, digits, atom_type_option, neutral_option, charge_name, 
         mof = ReadCif(name + ".cif")
         mof.first_block().AddToLoop("_atom_site_type_symbol",{'_atom_site_charge':[str(q) for q in charges]})
        
-        return ("# " + charge_name + "charges by PACMAN v1.3 (https://github.com/mtap-research/PACMAN-charge/)\n" +
+        return ("# " + charge_name + " charges by PACMAN v1.3 (https://github.com/mtap-research/PACMAN-charge/)\n" +
                     f"data_{name.split('/')[-1]}" + str(mof.first_block())), atom_type, net_charge
             
 
