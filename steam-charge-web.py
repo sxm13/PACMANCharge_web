@@ -76,6 +76,7 @@ st.markdown("""
 
 atom_type_option = st.radio("Atom Type", ('Yes', 'No'))
 neutral_option = st.radio("Neutral", ('Yes', 'No'))
+connect_option = st.radio("Keep Connect", ('Yes', 'No'))
 
 if uploaded_file is not None:
     file_name = uploaded_file.name.split('.')[0]
@@ -145,7 +146,7 @@ if uploaded_file is not None:
                 time.sleep(total_time / 100)
                 progress_bar.progress(i + 1)
         
-        prediction, atom_type_count, net_charge = predict_with_model(charge_option, f'{file_name}.cif', file_name, digits, atom_type_option, neutral_option)
+        prediction, atom_type_count, net_charge = predict_with_model(charge_option, f'{file_name}.cif', file_name, digits, atom_type_option, neutral_option, connect_option)
         if prediction is not None:
             if atom_type_option == 'Yes':
                 st.write("Atom: number of type")

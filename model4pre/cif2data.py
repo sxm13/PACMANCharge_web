@@ -1,6 +1,7 @@
 import warnings
 import numpy as np
 import pymatgen.core as mg
+from CifFile import ReadCif
 from ase.io import read,write
 from pymatgen.io.ase import AseAtomsAdaptor
 from pymatgen.core import Structure
@@ -143,7 +144,7 @@ def average_and_replace(numbers, di):
             numbers[i] = avg
     return numbers
 
-def write4cif(name, chg, digits, atom_type_option, neutral_option, charge_name):
+def write4cif(name, chg, digits, atom_type_option, neutral_option, charge_name, connect_option):
     new_content = []
     dia = int(digits)
     if atom_type_option:
@@ -194,34 +195,43 @@ def write4cif(name, chg, digits, atom_type_option, neutral_option, charge_name):
         net_charge = sum(charges)
         atom_type = "Failure to check like atoms"
 
-    with open(name + ".cif", 'r') as file:
-        lines = file.readlines()
-    
-    new_content.append("# " + charge_name + " charges by PACMAN v1.1 (https://github.com/mtap-research/PACMAN-charge) \n")
-    charge_inserted = False
-    charge_index = 0
-    
-    for line in lines:
-        line = line.replace('_space_group_name_H-M_alt', '_symmetry_space_group_name_H-M')
-        line = line.replace('_space_group_IT_number', '_symmetry_Int_Tables_number')
-        line = line.replace('_space_group_symop_operation_xyz', '_symmetry_equiv_pos_as_xyz')
+
+    if connect_option:
+        mof = ReadCif(name + ".cif")
+        mof.first_block().AddToLoop("_atom_site_type_symbol",{'_atom_site_charge':[str(q) for q in charges]})
+        with open(name + "_pacman.cif", 'w') as f:
+            f.write("# " + charge_name + "charges by PACMAN v1.3 (https://github.com/mtap-research/PACMAN-charge/)\n" +
+                    f"data_{name.split('/')[-1]}" + str(mof.first_block()))
+        print("Compelete and save as "+ name + "_pacman.cif")
+    else:
+        with open(name + ".cif", 'r') as file:
+            lines = file.readlines()
         
-        if '_atom_site_occupancy' in line and not charge_inserted:
-            new_content.append(line)
-            new_content.append("  _atom_site_charge\n")
-            charge_inserted = True
-        elif charge_inserted and charge_index < len(charges):
-            parts = line.strip().split()
-            formatted_parts = []
-            for part in parts[:-1]:
-                try:
-                    formatted_parts.append(format(float(part), ".8f"))
-                except ValueError:
-                    formatted_parts.append(part)
-            formatted_parts.append(parts[-1])
-            new_content.append(" ".join(formatted_parts) + " " + format(charges[charge_index], f".{dia}f") + "\n")
-            charge_index += 1
-        else:
-            new_content.append(line)
-    
-    return ''.join(new_content), atom_type, net_charge
+        new_content.append("# " + charge_name + " charges by PACMAN v1.3 (https://github.com/mtap-research/PACMAN-charge) \n")
+        charge_inserted = False
+        charge_index = 0
+        
+        for line in lines:
+            line = line.replace('_space_group_name_H-M_alt', '_symmetry_space_group_name_H-M')
+            line = line.replace('_space_group_IT_number', '_symmetry_Int_Tables_number')
+            line = line.replace('_space_group_symop_operation_xyz', '_symmetry_equiv_pos_as_xyz')
+            
+            if '_atom_site_occupancy' in line and not charge_inserted:
+                new_content.append(line)
+                new_content.append("  _atom_site_charge\n")
+                charge_inserted = True
+            elif charge_inserted and charge_index < len(charges):
+                parts = line.strip().split()
+                formatted_parts = []
+                for part in parts[:-1]:
+                    try:
+                        formatted_parts.append(format(float(part), ".8f"))
+                    except ValueError:
+                        formatted_parts.append(part)
+                formatted_parts.append(parts[-1])
+                new_content.append(" ".join(formatted_parts) + " " + format(charges[charge_index], f".{dia}f") + "\n")
+                charge_index += 1
+            else:
+                new_content.append(line)
+        
+        return ''.join(new_content), atom_type, net_charge
