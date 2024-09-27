@@ -75,8 +75,35 @@ st.markdown("""
             """, unsafe_allow_html=True)
 
 atom_type_option = st.radio("Atom Type", ('Yes', 'No'))
+st.markdown("""
+            <style>
+            .big-font {
+            font-size:14px !important;
+            color: grey;
+            }
+                </style>
+            <p class="big-font">Keep the same partial atomic charge for the same atom types (based on the similarity of partial atomic charges up to 3 decimal places).</p>
+            """, unsafe_allow_html=True)
 neutral_option = st.radio("Neutral", ('Yes', 'No'))
+st.markdown("""
+            <style>
+            .big-font {
+            font-size:14px !important;
+            color: grey;
+            }
+                </style>
+            <p class="big-font">Keep the net charge is zero. We use "mean" method to neuralize the system where the excess charges are equally distributed across all atoms.</p>
+            """, unsafe_allow_html=True)
 connect_option = st.radio("Keep Connect", ('Yes', 'No'))
+st.markdown("""
+            <style>
+            .big-font {
+            font-size:14px !important;
+            color: grey;
+            }
+                </style>
+            <p class="big-font">Retain the atomic and connection information (such as _atom_site_adp_type, bond) for the structure.</p>
+            """, unsafe_allow_html=True)
 
 if uploaded_file is not None:
     file_name = uploaded_file.name.split('.')[0]
@@ -170,5 +197,5 @@ st.markdown("""
             color: grey;
             }
                 </style>
-            <p class="big-font">Version 1.1.</p>
+            <p class="big-font">Version 1.3.</p>
             """, unsafe_allow_html=True)
