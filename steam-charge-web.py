@@ -74,7 +74,7 @@ st.markdown("""
             <p class="big-font">Note: models are trained on 6-digit data.</p>
             """, unsafe_allow_html=True)
 
-atom_type_option = st.radio("Atom Type", ('Yes', 'No'))
+atom_type_option = st.radio("Atom Type", ('No', 'Yes'))
 st.markdown("""
             <style>
             .big-font {
