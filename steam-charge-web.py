@@ -74,7 +74,7 @@ st.markdown("""
             <p class="big-font">Note: models are trained on 6-digit data.</p>
             """, unsafe_allow_html=True)
 
-atom_type_option = st.radio("Atom Type", ('No', 'Yes'))
+atom_type_option = st.radio("Atom Type", ('Yes', 'No'))
 st.markdown("""
             <style>
             .big-font {
@@ -94,7 +94,7 @@ st.markdown("""
                 </style>
             <p class="big-font">Keep the net charge is zero. We use "mean" method to neuralize the system where the excess charges are equally distributed across all atoms.</p>
             """, unsafe_allow_html=True)
-connect_option = st.radio("Keep Connect", ('Yes', 'No'))
+connect_option = st.radio("Keep Connect", ('No', 'Yes'))
 st.markdown("""
             <style>
             .big-font {
