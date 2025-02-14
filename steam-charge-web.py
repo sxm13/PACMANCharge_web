@@ -61,9 +61,63 @@ st.markdown("""
                 </style>
             <p class="big-font">Note: Your CIF file must can be read by ASE or Pymatgen (check is there a "data_" word in you CIF flie).</p>
             """, unsafe_allow_html=True)
-charge_option = st.radio("Charge Type", ('DDEC6', 'Bader', 'CM5', 'REPEAT'))
 
-digits = st.number_input("Digits", min_value=1, value=6)
+charge_option = st.radio(
+                        "Charge Type",
+                        ["DDEC6", "Bader", "CM5", "REPEAT"],
+                        index=0,
+                        key="charge model"
+                        )
+atom_type_option = st.radio(
+                "Atom Type",
+                [True, False],
+                index=0,
+                key="keep atom type"
+                )
+
+st.markdown("""
+            <style>
+            .big-font {
+            font-size:14px !important;
+            color: grey;
+            }
+                </style>
+            <p class="big-font">Keep the same partial atomic charge for the same atom types (based on the similarity of partial atomic charges up to 3 decimal places).</p>
+            """, unsafe_allow_html=True)
+
+neutral_option = st.radio(
+                "Neutral",
+                [True, False],
+                index=0,
+                key="keep zero"
+                )
+st.markdown("""
+            <style>
+            .big-font {
+            font-size:14px !important;
+            color: grey;
+            }
+                </style>
+            <p class="big-font">Keep the net charge is zero. We use "mean" method to neuralize the system where the excess charges are equally distributed across all atoms.</p>
+            """, unsafe_allow_html=True)
+
+connect_option = st.radio(
+                "Keep Connect",
+                [True, False],
+                index=0,
+                key="keep bond"
+                )
+st.markdown("""
+            <style>
+            .big-font {
+            font-size:14px !important;
+            color: grey;
+            }
+                </style>
+            <p class="big-font">Retain the atomic and connection information (such as _atom_site_adp_type, bond) for the structure.</p>
+            """, unsafe_allow_html=True)
+
+digits = st.number_input("Digits", min_value=1, value=6, max_value=15)
 st.markdown("""
             <style>
             .big-font {
@@ -74,36 +128,6 @@ st.markdown("""
             <p class="big-font">Note: models are trained on 6-digit data.</p>
             """, unsafe_allow_html=True)
 
-atom_type_option = st.radio("Atom Type", ('Yes', 'No'))
-st.markdown("""
-            <style>
-            .big-font {
-            font-size:14px !important;
-            color: grey;
-            }
-                </style>
-            <p class="big-font">Keep the same partial atomic charge for the same atom types (based on the similarity of partial atomic charges up to 3 decimal places).</p>
-            """, unsafe_allow_html=True)
-neutral_option = st.radio("Neutral", ('Yes', 'No'))
-st.markdown("""
-            <style>
-            .big-font {
-            font-size:14px !important;
-            color: grey;
-            }
-                </style>
-            <p class="big-font">Keep the net charge is zero. We use "mean" method to neuralize the system where the excess charges are equally distributed across all atoms.</p>
-            """, unsafe_allow_html=True)
-connect_option = st.radio("Keep Connect", ('No', 'Yes'))
-st.markdown("""
-            <style>
-            .big-font {
-            font-size:14px !important;
-            color: grey;
-            }
-                </style>
-            <p class="big-font">Retain the atomic and connection information (such as _atom_site_adp_type, bond) for the structure.</p>
-            """, unsafe_allow_html=True)
 
 if uploaded_file is not None:
     file_name = uploaded_file.name.split('.')[0]
@@ -126,7 +150,6 @@ if uploaded_file is not None:
         xyzview.zoomTo()
         showmol(xyzview, height=500, width=800)
 
-        
 
 
         #  _xyz = st.text_area(
@@ -136,8 +159,6 @@ if uploaded_file is not None:
         # res = speck_plot(_xyz,wbox_height="500px",wbox_width="500px")
 
 
-
-        
         formula = structure.get_chemical_formula()
         n_atoms = len(structure)
         st.markdown(f"**Chemical Formula:** {formula}")
