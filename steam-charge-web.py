@@ -196,10 +196,10 @@ if uploaded_file is not None:
         
         prediction, atom_type_count, net_charge = predict_with_model(charge_option, f'{file_name}.cif', file_name, digits, atom_type_option, neutral_option, connect_option)
         if prediction is not None:
-            if atom_type_option == 'Yes':
+            if atom_type_option:
                 st.write("Atom: number of type")
                 st.write(atom_type_count)
-            if neutral_option == 'No':
+            if not neutral_option:
                 st.write(f'Net Charge: {net_charge}')
             st.markdown('<span class="green-text">Please download the structure with PACMAN Charge</span>', unsafe_allow_html=True)
             st.download_button(label="Download cif file with charges", data=prediction, file_name=f"{file_name}_pacman.cif", mime='text/plain')
