@@ -5,7 +5,7 @@ tqdm>=4.15
 pandas>=0.20.3
 scikit-learn>=0.19.1
 joblib>= 0.13.2
-torch
+torch==2.0.1
 py3Dmol
 stmol==0.0.9
 ipython_genutils
