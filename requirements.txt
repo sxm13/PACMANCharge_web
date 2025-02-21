@@ -10,4 +10,4 @@ py3Dmol
 stmol==0.0.9
 ipython_genutils
 streamlit
-PyCifRW
+PyCifRW==4.4.6
