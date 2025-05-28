@@ -103,7 +103,7 @@ st.markdown("""
 
 connect_option = st.radio(
                 "Keep Connect",
-                [True, False],
+                [False, True],
                 index=2,
                 key="keep bond"
                 )
