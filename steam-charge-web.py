@@ -1,3 +1,8 @@
+import os
+import torch
+
+torch.classes.__path__ = []
+
 import time
 import py3Dmol
 from stmol import *
